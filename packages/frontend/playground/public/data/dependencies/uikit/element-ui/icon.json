@@ -1,0 +1,27 @@
+{
+    "id": "el-c1",
+    "element": "i",
+    "name": "Icon",
+    "category": "basic",
+    "title": "Icon",
+    "info": "provides a set of common icons.",
+    "uikit": "element-ui",
+    "icon": "ios-text-outline",
+    "native": true,
+    "visible": true,
+    "default": {
+        "properties": {
+            "class": "el-icon-info"
+        }
+    },
+    "properties": {
+        "class": {
+            "title": "Icon",
+            "info": "Icon class name",
+            "placeholder": "Icon class name",
+            "values": ["el-icon-info", "el-icon-error", "el-icon-success"],
+            "type": "string",
+            "default": null
+        }
+    }
+}

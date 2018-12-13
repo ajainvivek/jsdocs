@@ -1,0 +1,185 @@
+{
+  "view_count": 19951,
+  "version": 3,
+  "user_liked": false,
+  "updated_at": "2018-04-26T13:59:10.618336",
+  "title": "cxjs-codesandbox-template",
+  "template": "cxjs",
+  "team": null,
+  "tags": [],
+  "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+  "privacy": 0,
+  "owned": false,
+  "original_git_commit_sha": null,
+  "original_git": null,
+  "npm_dependencies": {},
+  "modules": [
+    {
+      "title": "cxjs.svg",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "SyylMJ3BJ6z",
+      "is_binary": true,
+      "id": "f65bec35-9ec3-4c6e-afc6-0a4bf8beb9c2",
+      "directory_shortid": "SJHGy3S16z",
+      "code": "https://rawgit.com/codaxy/cxjs-codesandbox-template/e324f4b9ef3fd6de12651dd17451e5294bc2b783/assets/img/cxjs.svg"
+    },
+    {
+      "title": "index.js",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "SypMJ3Bk6M",
+      "is_binary": false,
+      "id": "82bb6b45-b1b2-45ff-b756-78614b35103b",
+      "directory_shortid": "S1QzJ2SyaM",
+      "code": "import {HtmlElement, TextField} from \"cx/widgets\";\r\n\r\nexport default (\r\n    <cx>\r\n        <div ws>\r\n            <h3>Home</h3>\r\n            What is your name?\r\n            <TextField value-bind=\"$page.name\"/>\r\n            <p visible-expr=\"!!{$page.name}\" ws>\r\n                Hello <span text-tpl=\"{$page.name}\"/>! Welcome to <a href=\"https://cxjs.io\" target=\"_blank\">CxJS</a>.\r\n            </p>\r\n        </div>\r\n    </cx>\r\n);\r\n"
+    },
+    {
+      "title": "index.js",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "rynzJhHJ6f",
+      "is_binary": false,
+      "id": "8cd6e0ee-faae-4382-ad37-566d1e0a3760",
+      "directory_shortid": "H1zGJhSJTM",
+      "code": "import {HtmlElement} from \"cx/widgets\";\r\n\r\nexport default (\r\n    <cx>\r\n        <div>\r\n            <h3>About</h3>\r\n            <p>\r\n                This page is actually about routing. If you can see this in the browser, routing works.\r\n            </p>\r\n        </div>\r\n    </cx>\r\n);\r\n"
+    },
+    {
+      "title": "index.js",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "SJAGJnSkpM",
+      "is_binary": false,
+      "id": "6344aaa8-e269-49d6-bbef-c594d9403e08",
+      "directory_shortid": "rkWzy2Hypz",
+      "code": "import {Route, PureContainer, Sandbox} from \"cx/widgets\";\r\n\r\nimport AppLayout from \"../layout\";\r\nimport Default from \"./default\";\r\nimport About from \"./about\";\r\n\r\nexport default <cx>\r\n    <PureContainer outerLayout={AppLayout}>\r\n        <Sandbox key-bind=\"url\" storage-bind=\"pages\">\r\n            <Route url-bind=\"url\" route=\"~/\">\r\n                <Default />\r\n            </Route>\r\n            <Route url-bind=\"url\" route=\"~/about\">\r\n                <About />\r\n            </Route>\r\n        </Sandbox>\r\n    </PureContainer>\r\n</cx>"
+    },
+    {
+      "title": "index.scss",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "HkjfkhBypf",
+      "is_binary": false,
+      "id": "11398f26-ba0e-431f-a9b1-3412b4f3141b",
+      "directory_shortid": "r1efy2S1TG",
+      "code": "body {\r\n    font-family: sans-serif;\r\n    font-size: 14px;\r\n    margin: 0;\r\n}\r\n\r\n.app {\r\n    header {\r\n        display: flex;\r\n        align-items: center;\r\n        padding: 1rem 1.5rem;\r\n\r\n        .cxb-link {\r\n            padding: 14px 10px;\r\n        }\r\n    }\r\n\r\n    .logo {\r\n        height: 64px;\r\n    }\r\n\r\n    main {\r\n        padding: 0 1.5rem;\r\n    }\r\n}"
+    },
+    {
+      "title": "index.js",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "rJcGJnBy6G",
+      "is_binary": false,
+      "id": "ef74581f-00f9-45f8-ab3a-98a8393f9b82",
+      "directory_shortid": "r1efy2S1TG",
+      "code": "import {HtmlElement, ContentPlaceholder, Link} from \"cx/widgets\";\r\n\r\nexport default <cx>\r\n    <div class=\"app\">\r\n        <header ws>\r\n            <img class=\"logo\" src=\"~/assets/img/cxjs.svg\" />\r\n\r\n            <Link href=\"~/\" url-bind=\"url\">Home</Link>\r\n            <Link href=\"~/about\" url-bind=\"url\">About</Link>\r\n        </header>\r\n        <main>\r\n            <ContentPlaceholder />\r\n        </main>\r\n        <footer>\r\n\r\n        </footer>\r\n    </div>\r\n</cx>"
+    },
+    {
+      "title": "index.scss",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "HkYfy2SJTG",
+      "is_binary": false,
+      "id": "3cab97fd-8136-4fde-8f24-bb12d19846e7",
+      "directory_shortid": "HJfk3HkTM",
+      "code": "@import \"layout/index\";\r\n"
+    },
+    {
+      "title": "index.js",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "r1_MJhHk6f",
+      "is_binary": false,
+      "id": "a08acad4-773c-4e9b-8fd8-0734d92a05f1",
+      "directory_shortid": "HJfk3HkTM",
+      "code": "import {Store} from \"cx/data\";\nimport {History, startHotAppLoop} from \"cx/ui\";\nimport {Debug} from \"cx/util\";\nimport Routes from \"./routes\";\n\n//import css\nimport \"cx/dist/widgets.css\";\nimport \"./index.scss\";\n\n//store will hold the application state\nconst store = new Store();\n\n//setup client-side routing\nHistory.connect(store, \"url\");\n\n//dump app state in the console\nDebug.enable(\"app-data\");\n\n//start the application with hot module reloading\nstartHotAppLoop(\n    module,\n    document.getElementById(\"app\"),\n    store,\n    Routes\n);\n"
+    },
+    {
+      "title": "index.html",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "r1vfk2HyTf",
+      "is_binary": false,
+      "id": "234e6dce-77b6-4a18-a0b1-0a44394d0bc4",
+      "directory_shortid": "HJfk3HkTM",
+      "code": "<html>\n\n<head>\n\t<title>CxJS Sandbox</title>\n</head>\n\n<body>\n\t<div id=\"app\"></div>\n</body>\n\n</html>"
+    },
+    {
+      "title": "package.json",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "SyxxGJhSkaG",
+      "is_binary": false,
+      "id": "c0641a78-71f9-4fa3-9627-89508312f17a",
+      "directory_shortid": null,
+      "code": "{\n  \"name\": \"cxjs-codesandbox-template\",\n  \"version\": \"0.0.1\",\n  \"description\": \"CxJS Template for CodeSandbox\",\n  \"main\": \"app/index.js\",\n  \"scripts\": {},\n  \"dependencies\": {\n    \"cx\": \"^18.5.6\",\n    \"cx-react\": \"^17.10.0\",\n    \"react\": \"^16.3.2\",\n    \"react-dom\": \"^16.3.2\"\n  }  \n}\n"
+    },
+    {
+      "title": "README.md",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "HkLM12BJ6f",
+      "is_binary": false,
+      "id": "eb23770c-ebd0-4b57-a5e2-bc3577483aea",
+      "directory_shortid": null,
+      "code": "# CxJS Template\n\nA template for [CxJS projects](https://cxjs.io) in [CodeSandbox](https://codesandbox.io).\n"
+    }
+  ],
+  "like_count": 0,
+  "is_sse": false,
+  "is_frozen": false,
+  "id": "zrlzx9rjpx",
+  "git": {
+    "username": "codaxy",
+    "repo": "cxjs-codesandbox-template",
+    "path": "",
+    "commit_sha": "e324f4b9ef3fd6de12651dd17451e5294bc2b783",
+    "branch": "master"
+  },
+  "forked_from_sandbox": null,
+  "fork_count": 124,
+  "external_resources": [],
+  "entry": "app/index.js",
+  "directories": [
+    {
+      "title": "img",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "SJHGy3S16z",
+      "id": "ea7d25c1-b106-4ef2-9603-8fd7c9d03535",
+      "directory_shortid": "HJVzyhHypM"
+    },
+    {
+      "title": "default",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "S1QzJ2SyaM",
+      "id": "5605c000-2533-45fa-b8e6-08f60bf27e0c",
+      "directory_shortid": "rkWzy2Hypz"
+    },
+    {
+      "title": "about",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "H1zGJhSJTM",
+      "id": "5b4f86e8-13f0-4fbd-8631-b0ac6321131b",
+      "directory_shortid": "rkWzy2Hypz"
+    },
+    {
+      "title": "routes",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "rkWzy2Hypz",
+      "id": "cbe3d559-2e11-4eb2-bd90-c37eec11c476",
+      "directory_shortid": "HJfk3HkTM"
+    },
+    {
+      "title": "layout",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "r1efy2S1TG",
+      "id": "d829dccb-91be-4ac0-b33e-1ec9fdfc5513",
+      "directory_shortid": "HJfk3HkTM"
+    },
+    {
+      "title": "assets",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "HJVzyhHypM",
+      "id": "06e9167e-c22b-4116-b1aa-aa6f9193e5db",
+      "directory_shortid": null
+    },
+    {
+      "title": "app",
+      "source_id": "4e895009-c428-4807-97be-27b1c936ccde",
+      "shortid": "HJfk3HkTM",
+      "id": "c2968c74-e1db-4b8c-8650-ab1ccd07b891",
+      "directory_shortid": null
+    }
+  ],
+  "description": "CxJS Template for CodeSandbox",
+  "author": null
+}

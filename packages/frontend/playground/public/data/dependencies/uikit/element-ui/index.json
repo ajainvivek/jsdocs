@@ -1,0 +1,17 @@
+{
+    "data": {
+        "import": {
+            "styles": [
+                "https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.9/theme-chalk/index.css"
+            ]
+        },
+        "components": [
+            "icon",
+            "button",
+            "carousel",
+            "carousel-item",
+            "el-tabs",
+            "el-tab-pane"
+        ]
+    }
+}

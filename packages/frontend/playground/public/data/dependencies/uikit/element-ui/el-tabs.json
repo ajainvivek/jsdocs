@@ -1,0 +1,108 @@
+{
+    "id": "el-tabs",
+    "element": "el-tabs",
+    "name": "Tabs",
+    "category": "navigation",
+    "title": "Tabs",
+    "info": "divide data collections which are related yet belong to different types.",
+    "uikit": "element-ui",
+    "icon": "ios-more",
+    "native": false,
+    "visible": true,
+    "default": {
+        "properties": {},
+        "actions": [],
+        "data": {}
+    },
+    "properties": {
+        "type": {
+            "title": "Type",
+            "info": "type of Tab",
+            "placeholder": "Tab Type",
+            "type": "string",
+            "values": [
+                "card",
+                "border-card"
+            ],
+            "default": null
+        },
+        "tab-position": {
+            "title": "Tab Position",
+            "info": "position of tabs",
+            "placeholder": "Tab Type",
+            "type": "string",
+            "values": [
+                "top",
+                "right",
+                "bottom",
+                "left"
+            ],
+            "default": null
+        },
+        "value": {
+            "title": "Value",
+            "info": "name of the selected tab",
+            "placeholder": "Name of the selected tab",
+            "type": "string",
+            "value": "",
+            "default": null
+        },
+        "closable": {
+            "title": "Closable",
+            "info": "whether Tab is closable",
+            "type": "boolean",
+            "default": false
+        },
+        "addable": {
+            "title": "Addable",
+            "info": "whether Tab is addable",
+            "type": "boolean",
+            "default": false
+        },
+        "editable": {
+            "title": "Editable",
+            "info": "whether Tab is addable and closable",
+            "type": "boolean",
+            "default": false
+        },
+        "stretch": {
+            "title": "Stretch",
+            "info": "whether width of tab automatically fits its container",
+            "type": "boolean",
+            "default": false
+        },
+        "v-model": {
+            "title": "Model",
+            "info": "Varies based on value of form inputs element or output of components",
+            "placeholder": "Model name",
+            "type": "string",
+            "default": "",
+            "model": {},
+            "isModel": true
+        },
+        "@tab-click": {
+            "title": "Tab Click",
+            "info": "triggers when a tab is clicked",
+            "placeholder": "tab click action",
+            "type": "string",
+            "value": "",
+            "default": "handleClick",
+            "action": {
+                "name": "handleClick",
+                "args": [
+                    "tab",
+                    "event"
+                ],
+                "body": "console.log(tab, event);"
+            },
+            "isAction": true
+        }
+    },
+    "children": [
+        {
+            "id": "el-tab-pane",
+            "multiple": "true",
+            "title": "Tab Pane"
+        }
+    ]
+}

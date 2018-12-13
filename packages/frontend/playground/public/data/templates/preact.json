@@ -1,0 +1,81 @@
+{
+  "view_count": 51556,
+  "version": 25,
+  "user_liked": false,
+  "updated_at": "2018-08-22T05:15:09.342446",
+  "title": null,
+  "template": "preact-cli",
+  "team": null,
+  "tags": [],
+  "source_id": "150dce9d-672c-41bd-80d4-627b5598c863",
+  "privacy": 0,
+  "owned": false,
+  "original_git_commit_sha": null,
+  "original_git": null,
+  "npm_dependencies": { "preact-compat": "3.17.0", "preact": "8.2.5" },
+  "modules": [
+    {
+      "title": "index.js",
+      "source_id": "150dce9d-672c-41bd-80d4-627b5598c863",
+      "shortid": "wRo98",
+      "is_binary": false,
+      "id": "00f26ced-69f7-48bf-8c76-6931b5895580",
+      "directory_shortid": "lgDm5",
+      "code": "import \"./style\";\nimport { Component, render } from \"preact\";\nimport { Result } from \"./result\";\n\nconst SEARCH = \"//api.github.com/search/repositories\";\n\nexport default class App extends Component {\n  componentDidMount() {\n    fetch(`${SEARCH}?q=preact`)\n      .then(r => r.json())\n      .then(json => {\n        this.setState({\n          results: (json && json.items) || []\n        });\n      });\n  }\n\n  render(props, { results = [] }) {\n    return (\n      <div>\n        <h1>Example</h1>\n        <div class=\"list\">\n          {results.map(result => <Result result={result} />)}\n        </div>\n      </div>\n    );\n  }\n}\n\nif (typeof window !== \"undefined\") {\n  render(<App />, document.getElementById(\"root\"));\n}\n"
+    },
+    {
+      "title": "result.js",
+      "source_id": "150dce9d-672c-41bd-80d4-627b5598c863",
+      "shortid": "poknr",
+      "is_binary": false,
+      "id": "a8cf1f94-28a3-48fd-a91d-3d9a02ac6301",
+      "directory_shortid": "lgDm5",
+      "code": "export const Result = ({ result }) => {\n  return (\n    <div class=\"result\">\n      <div>\n        <a href={result.html_url} target=\"_blank\">\n          {result.full_name}\n        </a>\n        🌟<strong>{result.stargazers_count}</strong>\n      </div>\n      <p>\n        {result.description}\n      </p>\n    </div>\n  );\n};\n"
+    },
+    {
+      "title": "package.json",
+      "source_id": "150dce9d-672c-41bd-80d4-627b5598c863",
+      "shortid": "oAlAN",
+      "is_binary": false,
+      "id": "650def44-1669-4b08-8bde-4592cd0b3226",
+      "directory_shortid": null,
+      "code": "{\n  \"private\": true,\n  \"name\": \"test-preact\",\n  \"version\": \"0.0.0\",\n  \"license\": \"MIT\",\n  \"main\": \"src/index.js\",\n  \"scripts\": {\n    \"start\": \"if-env NODE_ENV=production && npm run -s serve || npm run -s dev\",\n    \"build\": \"preact build\",\n    \"serve\": \"preact build && preact serve\",\n    \"dev\": \"preact watch\",\n    \"lint\": \"eslint src\",\n    \"test\": \"jest ./tests\"\n  },\n  \"eslintConfig\": {\n    \"extends\": \"eslint-config-synacor\"\n  },\n  \"eslintIgnore\": [\n    \"build/*\"\n  ],\n  \"devDependencies\": {\n    \"eslint\": \"^4.9.0\",\n    \"eslint-config-synacor\": \"^2.0.2\",\n    \"identity-obj-proxy\": \"^3.0.0\",\n    \"if-env\": \"^1.0.0\",\n    \"jest\": \"^21.2.1\",\n    \"preact-cli\": \"^2.1.0\",\n    \"preact-render-spy\": \"^1.2.1\"\n  },\n  \"dependencies\": {\n    \"preact\": \"^8.2.6\",\n    \"preact-compat\": \"^3.17.0\"\n  },\n  \"jest\": {\n    \"verbose\": true,\n    \"setupFiles\": [\n      \"<rootDir>/src/tests/__mocks__/browserMocks.js\"\n    ],\n    \"testURL\": \"http://localhost:8080\",\n    \"moduleFileExtensions\": [\n      \"js\",\n      \"jsx\"\n    ],\n    \"moduleDirectories\": [\n      \"node_modules\"\n    ],\n    \"moduleNameMapper\": {\n      \"\\\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$\": \"<rootDir>/src/tests/__mocks__/fileMock.js\",\n      \"\\\\.(css|less|scss)$\": \"identity-obj-proxy\",\n      \"^./style$\": \"identity-obj-proxy\",\n      \"^preact$\": \"<rootDir>/node_modules/preact/dist/preact.min.js\",\n      \"^react$\": \"preact-compat\",\n      \"^react-dom$\": \"preact-compat\",\n      \"^create-react-class$\": \"preact-compat/lib/create-react-class\",\n      \"^react-addons-css-transition-group$\": \"preact-css-transition-group\"\n    }\n  }\n}"
+    },
+    {
+      "title": "index.scss",
+      "source_id": "150dce9d-672c-41bd-80d4-627b5598c863",
+      "shortid": "xz4Yl",
+      "is_binary": false,
+      "id": "c26655a5-1a4a-4069-84df-abc100a90ce8",
+      "directory_shortid": "535A8",
+      "code": "html, body {\n\tfont: 14px/1.21 'Helvetica Neue', arial, sans-serif;\n\tfont-weight: 400;\n\tcolor: #444;\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n}\n\nh1 {\n\ttext-align: center;\n}\n\n.result {\n\tpadding: 10px;\n\tmargin: 10px;\n\tbackground: white;\n\tbox-shadow: 0 1px 5px rgba(0,0,0,0.5);\n}\n"
+    }
+  ],
+  "like_count": 13,
+  "is_sse": false,
+  "is_frozen": false,
+  "id": "preact",
+  "git": null,
+  "forked_from_sandbox": null,
+  "fork_count": 0,
+  "external_resources": [],
+  "entry": "index.js",
+  "directories": [
+    {
+      "title": "style",
+      "source_id": "150dce9d-672c-41bd-80d4-627b5598c863",
+      "shortid": "535A8",
+      "id": "e6bffbbb-0b5c-4985-8c6c-c0c4c236f60f",
+      "directory_shortid": "lgDm5"
+    },
+    {
+      "title": "src",
+      "source_id": "150dce9d-672c-41bd-80d4-627b5598c863",
+      "shortid": "lgDm5",
+      "id": "0715bb94-a36c-48b4-ba89-b34680f23298",
+      "directory_shortid": null
+    }
+  ],
+  "description": null,
+  "author": null
+}

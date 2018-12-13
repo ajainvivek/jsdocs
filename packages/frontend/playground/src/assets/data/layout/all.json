@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "img": "img/layout/layout-24.png",
+    "title": "Blank Page"
+  },
+  {
+    "id": 2,
+    "img": "img/layout/layout-4.png",
+    "title": "Horizontal Layout"
+  },
+  {
+    "id": 3,
+    "img": "img/layout/layout-1.png",
+    "title": "Vertical Layout"
+  },
+  {
+    "id": 4,
+    "img": "img/layout/layout-6.png",
+    "title": "Product Layout"
+  },
+  {
+    "id": 5,
+    "img": "img/layout/layout-8.png",
+    "title": "Carousel Layout"
+  },
+  {
+    "id": 6,
+    "img": "img/layout/layout-7.png",
+    "title": "Multipanel Layout"
+  },
+  {
+    "id": 7,
+    "img": "img/layout/layout-20.png",
+    "title": "Text Layout"
+  },
+  {
+    "id": 8,
+    "img": "img/layout/layout-19.png",
+    "title": "Sidebar Layout"
+  },
+  {
+    "id": 9,
+    "img": "img/layout/layout-14.png",
+    "title": "Image Gallery"
+  },
+  {
+    "id": 10,
+    "img": "img/layout/layout-15.png",
+    "title": "Portfolio Layout"
+  },
+  {
+    "id": 11,
+    "img": "img/layout/layout-22.png",
+    "title": "Pinterest Layout"
+  },
+  {
+    "id": 12,
+    "img": "img/layout/layout-21.png",
+    "title": "Music Layout"
+  },
+  {
+    "id": 13,
+    "img": "img/layout/layout-18.png",
+    "title": "Video Layout"
+  },
+  {
+    "id": 14,
+    "img": "img/layout/layout-5.png",
+    "title": "Product Information"
+  },
+  {
+    "id": 15,
+    "img": "img/layout/layout-3.png",
+    "title": "Business Layout"
+  },
+  {
+    "id": 16,
+    "img": "img/layout/layout-9.png",
+    "title": "3 Column Grid"
+  },
+  {
+    "id": 17,
+    "img": "img/layout/layout-11.png",
+    "title": "2 Column Grid"
+  },
+  {
+    "id": 18,
+    "img": "img/layout/layout-16.png",
+    "title": "Contact Layout"
+  },
+  {
+    "id": 19,
+    "img": "img/layout/layout-10.png",
+    "title": "Map Layout"
+  },
+  {
+    "id": 20,
+    "img": "img/layout/layout-2.png",
+    "title": "Admin Layout"
+  },
+  {
+    "id": 21,
+    "img": "img/layout/layout-17.png",
+    "title": "404 Layout"
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "name": "jsdocs",
+  "private": true,
+  "devDependencies": {
+    "cz-lerna-changelog": "^1.2.1",
+    "lerna": "^3.0.0-rc.0"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:jsontoui": "lerna run --scope jsontoui dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ajainvivek/jsdocs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajainvivek/jsdocs/issues"
+  },
+  "homepage": "https://github.com/ajainvivek/jsdocs#README",
+  "description": "",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-lerna-changelog"
+    }
+  },
+  "dependencies": {
+    "vue-codemirror": "^4.0.6"
+  }
+}

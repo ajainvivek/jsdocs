@@ -1,0 +1,81 @@
+{
+    "id": "el-c3",
+    "element": "el-carousel",
+    "name": "Carousel",
+    "category": "others",
+    "title": "Carousel",
+    "info": "loops a series of images or texts in a limited space",
+    "uikit": "element-ui",
+    "icon": "ios-albums-outline",
+    "default": {},
+    "visible": true,
+    "properties": {
+        "autoplay": {
+            "title": "Autoplay",
+            "info": "Whether automatically loop the slides",
+            "type": "boolean",
+            "default": true
+        },
+        "loop": {
+            "title": "Loop",
+            "info": "display the items in loop",
+            "type": "boolean",
+            "default": true
+        },
+        "trigger": {
+            "title": "Trigger",
+            "info": "how indicators are triggered",
+            "placeholder": "Trigger type",
+            "type": "string",
+            "values": ["hover", "click"],
+            "default": "hover"
+        },
+        "arrow": {
+            "title": "Arrow",
+            "info": "when arrows are shown",
+            "placeholder": "Arrow visibility",
+            "type": "string",
+            "values": ["always", "hover", "never"],
+            "default": "hover"
+        },
+        "type": {
+            "title": "Type",
+            "info": "type of the Carousel",
+            "placeholder": "Carousel Type",
+            "type": "string",
+            "values": ["card"],
+            "default": null
+        },
+        "height": {
+            "title": "Height",
+            "info": "Height of the carousel",
+            "placeholder": "eg. 500px or 100px",
+            "type": "string",
+            "value": "",
+            "default": null
+        },
+        "initial-index": {
+            "title": "Initial Index",
+            "info": "Index of the initially active slide (starting from 0)",
+            "placeholder": "Active slide index",
+            "type": "number",
+            "value": "",
+            "default": 0
+        },
+        "interval": {
+            "title": "Interval",
+            "info": "interval of the auto loop, in milliseconds",
+            "placeholder": "Interval in ms",
+            "type": "number",
+            "value": "",
+            "default": 3000
+        }
+    },
+    "children": [
+        {
+            "id": "el-c3-c1",
+            "multiple": "true",
+            "title": "Carousel Item"
+        }
+    ]
+}

@@ -1,0 +1,61 @@
+0 silly argv { _: [ 'run' ],
+0 silly argv   scope: 'playground-ui',
+0 silly argv   lernaVersion: '3.4.3',
+0 silly argv   '$0': '/usr/local/bin/lerna',
+0 silly argv   script: 'serve' }
+1 notice cli v3.4.3
+2 verbose rootPath /Users/ajain/Dev/projects/jsdocs
+3 info filter [ 'playground-ui' ]
+4 silly batched [ PackageGraphNode {
+4 silly batched     name: 'playground-ui',
+4 silly batched     externalDependencies:
+4 silly batched      Map {
+4 silly batched        '@types/jest' => [Object],
+4 silly batched        '@vue/cli-plugin-babel' => [Object],
+4 silly batched        '@vue/cli-plugin-e2e-cypress' => [Object],
+4 silly batched        '@vue/cli-plugin-pwa' => [Object],
+4 silly batched        '@vue/cli-plugin-typescript' => [Object],
+4 silly batched        '@vue/cli-plugin-unit-jest' => [Object],
+4 silly batched        '@vue/cli-service' => [Object],
+4 silly batched        '@vue/test-utils' => [Object],
+4 silly batched        'babel-core' => [Object],
+4 silly batched        'http-server' => [Object],
+4 silly batched        'iview-theme' => [Object],
+4 silly batched        'node-sass' => [Object],
+4 silly batched        'sass-loader' => [Object],
+4 silly batched        'ts-jest' => [Object],
+4 silly batched        'typescript' => [Object],
+4 silly batched        'vue-template-compiler' => [Object],
+4 silly batched        'browserfs' => [Object],
+4 silly batched        'faker' => [Object],
+4 silly batched        'iview' => [Object],
+4 silly batched        'jsontoui' => [Object],
+4 silly batched        'liquor-tree' => [Object],
+4 silly batched        'localforage' => [Object],
+4 silly batched        'prettier' => [Object],
+4 silly batched        'register-service-worker' => [Object],
+4 silly batched        'shortid' => [Object],
+4 silly batched        'uuid' => [Object],
+4 silly batched        'vue' => [Object],
+4 silly batched        'vue-class-component' => [Object],
+4 silly batched        'vue-codemirror' => [Object],
+4 silly batched        'vue-property-decorator' => [Object],
+4 silly batched        'vue-router' => [Object],
+4 silly batched        'vuex' => [Object],
+4 silly batched        'vuex-persist' => [Object],
+4 silly batched        'workerize' => [Object] },
+4 silly batched     localDependencies: Map {},
+4 silly batched     localDependents: Map {} } ]
+5 info Executing command in 1 package: "npm run serve"
+6 silly npmRunScript serve [] playground-ui
+7 silly getExecOpts /Users/ajain/Dev/projects/jsdocs/packages/frontend/playground undefined
+8 error MaxBufferError: stderr maxBuffer exceeded
+8 error     at PassThrough.stream.on (/Users/ajain/Dev/projects/jsdocs/node_modules/get-stream/index.js:41:19)
+8 error     at PassThrough.emit (events.js:187:15)
+8 error     at addChunk (_stream_readable.js:283:12)
+8 error     at readableAddChunk (_stream_readable.js:260:13)
+8 error     at PassThrough.Readable.push (_stream_readable.js:219:10)
+8 error     at PassThrough.Transform.push (_stream_transform.js:151:32)
+8 error     at PassThrough.afterTransform (_stream_transform.js:92:10)
+8 error     at PassThrough._transform (_stream_passthrough.js:42:3)
+8 error     at PassThrough.Transform._read (_stream_transform.js:190:10)

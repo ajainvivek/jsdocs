@@ -1,0 +1,54 @@
+{
+    "name": "jsontoui",
+    "version": "0.1.1",
+    "description": "JSON based dynamic component generation",
+    "module": "dist/jsontoui.es.js",
+    "main": "dist/jsontoui.js",
+    "umd:main": "dist/jsontoui.umd.js",
+    "source": "src/index.js",
+    "repository": "",
+    "scripts": {
+        "build": "./node_modules/.bin/microbundle --i src/index.js --o dist --globals prettier --sourcemap false",
+        "dev": "microbundle watch --i src/index.js --o dist --globals js-beautify,prettier",
+        "prepublishOnly": "npm run build",
+        "test": "echo \"Error: no test specified\" && exit 0",
+        "fix:other": "yarn prettier --write",
+        "fix:js": "yarn test:js --fix",
+        "fix": "yarn fix:js && yarn fix:other",
+        "precommit": "lint-staged",
+        "prettier": "prettier \"**/*.{json,md,scss,yaml,yml}\""
+    },
+    "lint-staged": {
+        "*.{js}": [
+            "eslint --fix",
+            "git add"
+        ],
+        "*.{json,md,yaml,yml}": [
+            "prettier --write",
+            "git add"
+        ]
+    },
+    "files": [
+        "src",
+        "dist"
+    ],
+    "keywords": [
+        "dynamic component",
+        "json component",
+        "vue component"
+    ],
+    "author": "Ajain Vivek <ajainvivek07@gmail.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "eslint": "5.6.0",
+        "eslint-config-prettier": "3.1.0",
+        "eslint-plugin-prettier": "2.6.2",
+        "husky": "0.14.3",
+        "lint-staged": "7.3.0",
+        "microbundle": "^0.6.0"
+    },
+    "dependencies": {
+        "faker": "^4.1.0",
+        "prettier": "^1.15.3"
+    }
+}

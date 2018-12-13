@@ -1,0 +1,33 @@
+{
+  "name": "Blank",
+  "node": "page",
+  "element": "div",
+  "meta": {
+    "title": "Blank",
+    "description": "This is the meta description for the home page"
+  },
+  "data": {
+    "title": "This is your blank page, start dragging and dropping components."
+  },
+  "properties": {
+    "class": [
+      "empty-page"
+    ],
+    "style": {
+      "height": "calc(100vh - 60px)",
+      "padding": "20px"
+    }
+  },
+  "children": [
+    {
+      "node": "container",
+      "element": "h2",
+      "content": "{{title}}",
+      "properties": {
+        "style": {
+          "fontWeight": "normal"
+        }
+      }
+    }
+  ]
+}

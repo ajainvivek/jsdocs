@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JSON TO UI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./../dist/jsontoui.js"></script>
+</head>
+
+<body>
+
+    <script>
+        var componentData = {
+            name: 'Home',
+            node: 'page',
+            element: 'div',
+            meta: {
+                title: 'About',
+                description: 'This is the meta description for the about page',
+            },
+            data: {
+                title: 'This is your about page, start dragging and dropping components.',
+            },
+            properties: {
+                class: ['about-page'],
+                style: {
+                    height: 'calc(100vh - 60px)',
+                    padding: '20px',
+                },
+                boolean: true,
+                object: {
+                    a: 1
+                }
+            },
+            children: [
+                {
+                    node: 'container',
+                    element: 'el-button',
+                    name: 'Button',
+                    uikit: 'element-ui',
+                    content: '{{title}}',
+                    inlineStyle: true,
+                    properties: {
+                        style: {
+                            fontWeight: 'normal',
+                            fontSize: '20px',
+                        },
+                    }
+                },
+            ],
+        };
+
+        var routeData = [{
+            name: 'Home',
+            path: '/',
+            directoryPath: './pages',
+
+        }, {
+            name: 'About',
+            path: '/about',
+            directoryPath: './pages',
+
+        }, {
+            name: 'Test',
+            path: '/about',
+            directoryPath: './pages',
+
+        }];
+
+        var commonsData = {
+            'element-ui': ['element-ui/lib/theme-chalk/index.css', 'https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.9/theme-chalk/index.css'],
+            'plugin': ['plugin/plugin.js']
+        };
+
+        console.log(jsontoui(componentData, 'vue', {
+            format: true
+        }));
+
+        console.log(jsontoui(routeData, 'vue', {
+            isRouter: true
+        }));
+
+        console.log(jsontoui(commonsData, 'vue', {
+            isCommons: true
+        }));
+    </script>
+</body>
+
+</html>
