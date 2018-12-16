@@ -19,15 +19,6 @@ interface PageLayout {
     title: string;
 }
 
-const blankPage = {
-    name: 'Blank',
-    node: 'page',
-    element: 'div',
-    data: {},
-    properties: {},
-    children: []
-};
-
 // Initial State
 const state = {
     pageTree: baseLayout,
@@ -41,7 +32,8 @@ const state = {
     uikit: uikit.data.uikit,
     components: [],
     lang: 'vue',
-    selectedNode: {}
+    selectedNode: {},
+    activeUiKit: ''
 };
 
 // Getters - to compute derived state based on store state, for example filtering through a list of items
@@ -70,30 +62,41 @@ const getters = {
 
 // Mutations - to change state in a store by committing a mutation
 const mutations = {
+    updateActiveUiKit(state, kit) {
+        state.activeUiKit = kit;
+    },
     updatePageTree(state, tree) {
         state.pageTree = tree;
     },
     updateLayoutDrawer(state, isDrawer) {
         state.isLayoutDrawerOpen = isDrawer;
     },
-    // add new module to the application
-    addNewModule(state, { module, router }) {
+    createPages(state, {pages, routes}) {
         let frame = <HTMLIFrameElement>document.getElementById('sandbox');
 
         if (state.sourceCode && state.sourceCode.modules) {
-            let routerModule: any = find(state.sourceCode.modules, {
-                shortid: state.sourceCode.shared.router,
-            });
-            routerModule.code = router;
 
+            // append all the pages
             state.sourceCode.modules = [
-                ...state.sourceCode.modules.filter(module => module.id !== routerModule.id),
-                routerModule,
-                module,
+                ...state.sourceCode.modules,
+                ...pages,
             ];
+
+            // append all the routes
+            routes.forEach((route) => {
+                let routerModule: any = find(state.sourceCode.modules, {
+                    shortid: state.sourceCode.shared.router,
+                });
+                routerModule.code = route;
+
+                state.sourceCode.modules = [
+                    ...state.sourceCode.modules.filter(module => module.id !== routerModule.id),
+                    routerModule
+                ];
+            });
             
             frame.contentWindow!.postMessage({ type: 'raw-compile', raw: state.sourceCode, codesandbox: true }, '*');
-            state.currentView = module;
+            state.currentView = pages[0];
         }
     },
     // update the current view
@@ -124,7 +127,7 @@ const mutations = {
                 id,
                 directory_shortid,
             });
-            module.code = code;
+            module.code = code; 
             if (jsonView) {
                 module.json_buffer = btoa(JSON.stringify(jsonView));
             }
@@ -134,7 +137,9 @@ const mutations = {
                 pluginsModule,
             ]);
             state.currentView = module;
-            frame.contentWindow!.postMessage({ type: 'raw-compile', raw: state.sourceCode, codesandbox: true }, '*');
+            if (frame && frame.contentWindow) {
+                frame.contentWindow!.postMessage({ type: 'raw-compile', raw: state.sourceCode, codesandbox: true }, '*');
+            }
         }
     },
     // update the new page settings
@@ -174,29 +179,35 @@ const mutations = {
 
 // Actions - actions commit mutations, can contain arbitrary asynchronous operations
 const actions = {
-    createPage({ commit }, data) {
+    createPages({ commit }, data) {
         const sourceCode = data.sourceCode;
-        const template = blankPage;
         const pageDirectory: any = find(sourceCode.directories, {
             title: 'pages',
         });
+        const routes: any = [];
         const lang = 'vue';
-        const name = (data.settings && data.settings.pagename) || template.name;
-        const path = '';
-        const page = generatePage({
-            template,
-            source_id: sourceCode.source_id,
-            name,
-            directory_shortid: pageDirectory.shortid,
-            path,
-            lang, // TODO fetch based on lang
+        const pages = data.pages.map((page) => {
+            const name = page.template.name;
+            const path = page.path;
+            page = generatePage({
+                template: page.template,
+                source_id: sourceCode.source_id,
+                name,
+                directory_shortid: pageDirectory.shortid,
+                path,
+                lang, // TODO fetch based on lang
+            });
+            
+            // push route 
+            const route = generateRoute({ page, sourceCode, lang });
+            routes.push(route);
+
+            return page;
         });
-        page.path = (data.settings && data.settings.pagepath) || `/${dasherize(name)}-${page.shortid}`;
-        const router = generateRoute({ page, sourceCode, lang });
-        // TODO: update menu link here via central store data
-        commit('addNewModule', {
-            module: page,
-            router,
+        
+        commit('createPages', {
+            pages,
+            routes
         });
     },
     updateModuleCode({ commit }, { id, directory_shortid, code, plugin, isRemoveDependency, jsonView }) {
@@ -251,6 +262,9 @@ const actions = {
 
         dispatch('updateModuleCode', { id, directory_shortid, jsonView: json });
     },
+    updateActiveUiKit({commit, dispatch}, kit) {
+        commit('updateActiveUiKit', kit);
+    }
 };
 
 export const builder = {

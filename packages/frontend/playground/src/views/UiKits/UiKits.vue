@@ -36,11 +36,13 @@ export default class UiKits extends Vue {
         return dependencies;
     }
 
-    private loadUiKit(dependency) {
+    private async loadUiKit(dependency) {
         const sourceCode = this.$store.state.builder.sourceCode;
         if (sourceCode.template === dependency.template) {
-            this.addNpmDependencyToPackage(dependency);
-            this.navigateToStudio();
+            let isDependencyAdded = await this.addNpmDependencyToPackage(dependency);
+            if (isDependencyAdded) {
+                this.navigateToStudio();
+            }
         }
     }
 
@@ -106,7 +108,7 @@ export default class UiKits extends Vue {
         const { id, name, version, isDev, included } = dependency;
         // if package is already included
         if (included) {
-            return;
+            return Promise.resolve(true);
         }
         const { parsed, module } = this.getNpmDependencies();
         const type = isDev ? 'devDependencies' : 'dependencies';
@@ -131,6 +133,8 @@ export default class UiKits extends Vue {
             title: 'Package Dependency',
             desc: `Adding ${name} dependency to project`,
         });
+
+        return Promise.resolve(true);
     }
 
     private async removeNpmDependencyFromPackage(dependency) {

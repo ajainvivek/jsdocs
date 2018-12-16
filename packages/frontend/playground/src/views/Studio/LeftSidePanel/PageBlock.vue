@@ -10,7 +10,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { find, filter, startCase } from 'lodash';
+import { find, filter, startCase, uniqBy, upperFirst, merge  } from 'lodash';
+import { uniqueStringId, dasherize } from '@/helpers';
 
 @Component({
     components: {
@@ -19,19 +20,38 @@ import { find, filter, startCase } from 'lodash';
 export default class PageBlock extends Vue {
 
     mounted() {
-        window.createNewPage = () =>{
-            this.createPage(); 
+        let activeUiKit = this.$store.state.builder.activeUiKit;
+        let components = this.$store.state.builder.components;
+        components = components.filter(component => {
+            return component.visible === true;
+        });
+        // if current active uikit then create page blocks 
+        if(components[0] && components[0].uikit !== activeUiKit) {
+            // set the active ui kit
+            this.$store.dispatch('builder/updateActiveUiKit', components[0].uikit);
+            this.createPages(components);
         }
     }
 
-    private createPage() {
+    private createPages(components) {
         const sourceCode = this.$store.state.builder.sourceCode;
-        const pageSettings = {
-            pagename: 'hello',
-            pagepath: '/hello'
-        };
-        this.$store.dispatch('builder/createPage', {
-            settings: pageSettings,
+        const pages = [];
+        components.forEach(component => {
+            let page: any = {};
+            page.template = {
+                name: component.name,
+                node: 'page',
+                element: 'div',
+                data: {},
+                properties: {},
+                children: this.injectComponent(component)
+            };
+            console.log(page.template);
+            page.path = `/${dasherize(component.name)}`;
+            pages.push(page);
+        });
+        this.$store.dispatch('builder/createPages', {
+            pages,
             sourceCode,
         });
     }
@@ -73,6 +93,33 @@ export default class PageBlock extends Vue {
             selectedPage = this.$store.state.builder.currentView || this.pages[0];
         }
         return selectedPage;
+    }
+
+    private injectComponent(component) {
+        const currentView = this.$store.state.builder.currentView;
+        const { id, directory_shortid } = currentView;
+        let children = [];
+        const sid = uniqueStringId();
+        const defaultValue = Object.assign({}, component.default);
+        component = merge(
+            {
+                id: sid,
+                name: component.name,
+                node: 'container',
+                element: component.element,
+                uikit: component.uikit,
+                native: component.native,
+            },
+            {
+                properties: {
+                    [`data-${sid}`]: true,
+                    class: [sid],
+                },
+            },
+            defaultValue,
+        );
+        children.push(component);
+        return children;
     }
 }
 </script>
