@@ -68,14 +68,14 @@ const contructRoutePath = (path = '', dirs, shortid) => {
     return `./${path.substring(1)}`;
 };
 
-export const generateRoute = function ({ page, sourceCode, lang }) {
+export const generateRoute = function ({ pages, sourceCode, lang }) {
     const pageDirectory: any = find(sourceCode.directories, {
         title: 'pages',
     });
     const pageModules = filter(sourceCode.modules, {
         directory_shortid: pageDirectory.shortid,
     });
-    pageModules.push(page);
+    pageModules.push(...pages);
 
     const routes = pageModules.map((module: any) => {
         const name = module.title.replace(/\.[^/.]+$/, '');

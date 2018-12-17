@@ -46,7 +46,6 @@ export default class PageBlock extends Vue {
                 properties: {},
                 children: this.injectComponent(component)
             };
-            console.log(page.template);
             page.path = `/${dasherize(component.name)}`;
             pages.push(page);
         });

@@ -71,29 +71,37 @@ const mutations = {
     updateLayoutDrawer(state, isDrawer) {
         state.isLayoutDrawerOpen = isDrawer;
     },
-    createPages(state, {pages, routes}) {
+    removeAllPages(state) {
+        const pageDirectory: any = find(state.sourceCode.directories, {
+            title: 'pages',
+        });
+
+        // append all the pages and exclude old pages
+        state.sourceCode.modules = [
+            ...state.sourceCode.modules.filter((module) => module.directory_shortid !== pageDirectory.shortid)
+        ];
+    },
+    createPages(state, {pages, router}) {
         let frame = <HTMLIFrameElement>document.getElementById('sandbox');
 
         if (state.sourceCode && state.sourceCode.modules) {
 
-            // append all the pages
+            // append all the pages and exclude old pages
             state.sourceCode.modules = [
                 ...state.sourceCode.modules,
                 ...pages,
             ];
 
-            // append all the routes
-            routes.forEach((route) => {
-                let routerModule: any = find(state.sourceCode.modules, {
-                    shortid: state.sourceCode.shared.router,
-                });
-                routerModule.code = route;
-
-                state.sourceCode.modules = [
-                    ...state.sourceCode.modules.filter(module => module.id !== routerModule.id),
-                    routerModule
-                ];
+            // add router module
+            let routerModule: any = find(state.sourceCode.modules, {
+                shortid: state.sourceCode.shared.router,
             });
+            routerModule.code = router;
+
+            state.sourceCode.modules = [
+                ...state.sourceCode.modules.filter(module => module.id !== routerModule.id),
+                routerModule
+            ];
             
             frame.contentWindow!.postMessage({ type: 'raw-compile', raw: state.sourceCode, codesandbox: true }, '*');
             state.currentView = pages[0];
@@ -127,7 +135,7 @@ const mutations = {
                 id,
                 directory_shortid,
             });
-            module.code = code; 
+            module.code = code;
             if (jsonView) {
                 module.json_buffer = btoa(JSON.stringify(jsonView));
             }
@@ -184,7 +192,6 @@ const actions = {
         const pageDirectory: any = find(sourceCode.directories, {
             title: 'pages',
         });
-        const routes: any = [];
         const lang = 'vue';
         const pages = data.pages.map((page) => {
             const name = page.template.name;
@@ -197,17 +204,18 @@ const actions = {
                 path,
                 lang, // TODO fetch based on lang
             });
-            
-            // push route 
-            const route = generateRoute({ page, sourceCode, lang });
-            routes.push(route);
 
             return page;
         });
         
+        // Remove all existing pages
+        commit('removeAllPages');
+
+        const router = generateRoute({ pages, sourceCode, lang });
+        
         commit('createPages', {
             pages,
-            routes
+            router
         });
     },
     updateModuleCode({ commit }, { id, directory_shortid, code, plugin, isRemoveDependency, jsonView }) {
