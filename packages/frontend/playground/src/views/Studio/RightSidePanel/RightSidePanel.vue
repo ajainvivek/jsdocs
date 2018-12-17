@@ -4,21 +4,16 @@
 			<TabPane label="Properties" class="content">
 				<PropertiesBlock></PropertiesBlock>
 			</TabPane>
-			<TabPane label="Connect" class="content">
-				<Connect></Connect>
-			</TabPane>
 		</Tabs>
 	</div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Connect from './Connect.vue';
 import PropertiesBlock from './PropertiesBlock.vue';
 
 @Component({
     components: {
-        Connect,
         PropertiesBlock,
     },
 })
