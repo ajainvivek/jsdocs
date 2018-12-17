@@ -1,6 +1,5 @@
 {
-    "data": {
-      "view_count": 10,
+    "view_count": 10,
       "version": 74,
       "user_liked": false,
       "updated_at": "2018-12-13T09:43:08.673450",
@@ -25,6 +24,10 @@
         "vue-router": "3.0.1",
         "vue": "2.5.2"
       },
+      "shared": {
+         "router": "j5q0z",
+         "plugins": "w7KkR"
+      },
       "modules": [
         {
           "updated_at": "2018-12-13T09:43:08.680544",
@@ -46,7 +49,7 @@
           "inserted_at": "2018-10-24T07:30:59.522032",
           "id": "cb0c95d1-3e4c-45f2-9ae3-f09b1ed5ec6f",
           "directory_shortid": "S1MeHzyBbM",
-          "code": "import Vue from \"vue\";\n\nconst externalUrls = [\n  \"https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.9/theme-chalk/index.css\"\n];\n\nconst injectExternalUrls = urls => {\n  urls.forEach(url => {\n    const extension = url.split(\".\").pop();\n    let element = null;\n    if (extension === \"css\") {\n      element = document.createElement(\"link\");\n      element.rel = \"stylesheet\";\n      element.href = \"data:text/css,\" + escape('@import url(\"' + url + '\");');\n    } else if (extension === \"js\") {\n      element = document.createElement(\"script\");\n      element.setAttribute(\"src\", escape(url));\n    } else {\n      return;\n    }\n    document.getElementsByTagName(\"head\")[0].appendChild(element);\n  });\n};\ninjectExternalUrls(externalUrls);\n"
+          "code": "/** Add plugins here */\n"
         },
         {
           "updated_at": "2018-10-27T11:04:35.991976",
@@ -422,5 +425,4 @@
       ],
       "description": null,
       "author": null
-    }
   }

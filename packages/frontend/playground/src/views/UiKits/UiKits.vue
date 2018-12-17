@@ -120,7 +120,6 @@ export default class UiKits extends Vue {
         let code = JSON.stringify(parsed, null, 2);
         let uikit: any = await this.fetchUiKit(id);
         let components = (uikit.data && uikit.data.components) || [];
-
         this.$store.dispatch('builder/addComponents', components);
         this.$store.dispatch('builder/updateModuleCode', {
             id: module.id,

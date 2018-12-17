@@ -6,7 +6,7 @@
 					<div slot="top" class="pu-split-pane">
 						<PageBlock></PageBlock>
 					</div>
-					<div slot="bottom" class="pu-split-pane padding-10">
+					<div slot="bottom" class="tree-block pu-split-pane padding-10">
 						<TreeBlock></TreeBlock>
 					</div>
 				</Split>
@@ -54,6 +54,10 @@ export default class Home extends Vue {
     background: #f5f5f5;
     border: 1px solid #dcdee2;
     overflow: hidden;
+}
+
+.tree-block {
+	background: #fff;
 }
 
 .pu-split-pane {

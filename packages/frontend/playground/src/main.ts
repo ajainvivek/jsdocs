@@ -8,6 +8,11 @@ import './assets/iview.css';
 
 Vue.use(iView);
 
+declare global {
+  interface Window { eventBus: any; }
+}
+
+window.eventBus = new Vue();
 Vue.config.productionTip = false;
 
 new Vue({

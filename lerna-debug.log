@@ -41,6 +41,7 @@
 4 silly batched        'vue-codemirror' => [Object],
 4 silly batched        'vue-property-decorator' => [Object],
 4 silly batched        'vue-router' => [Object],
+4 silly batched        'vue-tree-halower' => [Object],
 4 silly batched        'vuex' => [Object],
 4 silly batched        'vuex-persist' => [Object],
 4 silly batched        'workerize' => [Object] },

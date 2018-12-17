@@ -3,9 +3,11 @@
 		<Layout>
 			<Header class="pu-layout-header">
 				<Menu mode="horizontal" theme="light" active-name="1">
-					<div class="layout-logo">
-						<img src="./assets/jsdocs-small-logo.png" height="32" />
-					</div>
+                    <router-link to="/">
+                        <div class="layout-logo">
+						    <img src="./assets/jsdocs-small-logo.png" height="32" />
+					    </div>
+                    </router-link>
 					<div class="header-subtitle">
 						| <span>Studio</span>
 					</div>

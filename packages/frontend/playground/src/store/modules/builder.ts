@@ -1,5 +1,4 @@
 import pageLayouts from '@/assets/data/layout/all.json';
-import baseLayout from '@/assets/data/layout/base.json';
 import sourceCode from '@/assets/data/templates/vue-router.json';
 import uikit from '@/assets/data/dependencies/uikit/all.json';
 
@@ -21,7 +20,7 @@ interface PageLayout {
 
 // Initial State
 const state = {
-    pageTree: baseLayout,
+    pageTree: [],
     isLayoutDrawerOpen: false,
     currentView: null,
     sourceCode: sourceCode,
@@ -42,9 +41,9 @@ const getters = {
         return pageLayouts;
     },
     selectedComponent(state): any {
-        let selected = (state.selectedNode && state.selectedNode.data) || null;
+        let selected = (state.selectedNode) || null;
         let selectedComponent: any = {};
-        if (selected) {
+        if (selected && selected.data) {
             selectedComponent = find(state.components, {
                 name: selected.data.name,
                 uikit: selected.data.uikit,

@@ -194,6 +194,7 @@ export default class PropertiesBlock extends Vue {
 
     get formComponents() {
         const selectedComponent = this.$store.getters['builder/selectedComponent'];
+        
         const selectProperties = pickBy(selectedComponent.properties || {}, prop => {
             return Array.isArray(prop.values);
         });

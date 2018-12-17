@@ -78,7 +78,9 @@ export default class PreviewBlock extends Vue {
         let selectedView = find(sourceCode.modules, {
             path,
         });
-        this.updateSelectedPage(selectedView);
+        if (selectedView) {
+            this.updateSelectedPage(selectedView);
+        }
         if (selectedView && currentView.path !== selectedView.path) {
             this.$store.dispatch('builder/updateCurrentView', selectedView);
         }

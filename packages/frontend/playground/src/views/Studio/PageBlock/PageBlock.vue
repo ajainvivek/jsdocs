@@ -88,7 +88,11 @@ export default class PageBlock extends Vue {
                 node: 'page',
                 element: 'div',
                 data: {},
-                properties: {},
+                properties: {
+                    style: {
+                        padding: '40px'
+                    }
+                },
                 children: this.injectComponent(component),
             };
             page.path = `/${dasherize(component.name)}`;
@@ -105,6 +109,11 @@ export default class PageBlock extends Vue {
         const isHashRoute = sourceCode.isHashRoute;
         const frame = <HTMLIFrameElement>document.getElementById('sandbox');
         const page = this.getSelectedPage(component);
+        // Emit global event of page change
+        window.eventBus.$emit('page-changed', {
+            page
+        });
+        // Update iframe
         frame.contentWindow.postMessage(
             { type: 'route-change', isHash: isHashRoute, codesandbox: true, path: page.path },
             '*',
