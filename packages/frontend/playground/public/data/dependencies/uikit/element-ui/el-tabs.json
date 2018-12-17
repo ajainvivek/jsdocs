@@ -12,7 +12,11 @@
     "default": {
         "properties": {},
         "actions": [],
-        "data": {}
+        "data": {},
+        "children": [{
+            "id": "el-tab-pane",
+            "count": 4
+        }]
     },
     "properties": {
         "type": {

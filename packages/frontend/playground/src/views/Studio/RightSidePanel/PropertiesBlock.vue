@@ -5,11 +5,12 @@
 				<component :is="input.component" :data="input.data"></component>
 			</div>
 		</Form>
-		<div class="delete">
+        <!-- TODO: If not root and child component enable delete option -->
+		<!-- <div class="delete">
 			<Poptip confirm title="Are you sure you want to delete this item?" @on-ok="deleteComponent" ok-text="Yes" cancel-text="No">
 				<Button type="primary" long>DELETE</Button>
 			</Poptip>
-		</div>
+		</div> -->
 	</div>
 </template>
 
@@ -226,7 +227,6 @@ export default class PropertiesBlock extends Vue {
             checkboxGroupComp,
             dropDownComponent,
             inputModelComponent,
-            selectActionComponent,
         );
 
         return components;

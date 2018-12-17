@@ -1,5 +1,5 @@
 {
-    "id": "el-c3",
+    "id": "el-carousel",
     "element": "el-carousel",
     "name": "Carousel",
     "category": "others",
@@ -7,7 +7,12 @@
     "info": "loops a series of images or texts in a limited space",
     "uikit": "element-ui",
     "icon": "ios-albums-outline",
-    "default": {},
+    "default": {
+        "children": [{
+            "id": "el-carousel-item",
+            "count": 3
+        }]
+    },
     "visible": true,
     "properties": {
         "autoplay": {

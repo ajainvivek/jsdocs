@@ -21,7 +21,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { find, filter, startCase, uniqBy, upperFirst, merge  } from 'lodash';
-import { uniqueStringId, dasherize } from '@/helpers';
+import { uniqueStringId, dasherize, injectFakeData } from '@/helpers';
 
 @Component({
     components: {
@@ -155,6 +155,27 @@ export default class PageBlock extends Vue {
         let children = [];
         const sid = uniqueStringId();
         const defaultValue = Object.assign({}, component.default);
+
+        // if default component comprises of children then inject the child nodes
+        if (defaultValue.children) {
+            let children = [];
+            defaultValue.children.forEach((child) => {
+                const components = this.$store.state.builder.components;
+                const component = find(components, {
+                    id: child.id
+                });
+                if (child.count) {
+                    for (let i = 0; i < child.count; i++) {
+                        let node = this.injectComponent(component);
+                        children = children.concat(node);
+                    }
+                } else {
+                    let node = this.injectComponent(component);
+                    children = children.concat(node);
+                }
+            });
+            defaultValue.children = children;
+        }
         component = merge(
             {
                 id: sid,
@@ -172,6 +193,9 @@ export default class PageBlock extends Vue {
             },
             defaultValue,
         );
+
+        component = injectFakeData(component);
+        
         children.push(component);
         return children;
     }
