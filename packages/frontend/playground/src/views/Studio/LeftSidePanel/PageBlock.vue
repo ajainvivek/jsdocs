@@ -1,9 +1,20 @@
 <template>
 	<div class="page-block-wrapper">
-		<div v-for="page in pages" :key="page.id" @click="updateSelectedPage(page)">
-			<Card class="card" shadow :class="{ selected: selectedPage.id === page.id }">
-				<h3>{{page.name}}</h3>
-			</Card>
+        <Input search placeholder="Search..." />
+        <div class="item-wrapper" v-for="category in categories" :key="category.id">
+			<h4>{{category.name}}</h4>
+			<div class="items">
+                <div v-for="component in getCategoryItems(category.id)" :key="component.id" @click="updateSelectedPage(component)">
+					<Card class="card" shadow :class="{ selected: selectedPage.id === getSelectedPage(component).id }">
+						<div class="title">
+							<Icon :type="component.icon" class="icon" size="16" />
+							<h4 class="text">{{component.title}}</h4>
+							<span>({{component.uikit}})</span>
+						</div>
+						<p class="desc">{{component.info}}</p>
+					</Card>
+				</div>
+            </div>
 		</div>
 	</div>
 </template>
@@ -19,18 +30,53 @@ import { uniqueStringId, dasherize } from '@/helpers';
 })
 export default class PageBlock extends Vue {
 
-    mounted() {
-        let activeUiKit = this.$store.state.builder.activeUiKit;
-        let components = this.$store.state.builder.components;
-        components = components.filter(component => {
+    get components() {
+        const components = this.$store.state.builder.components;
+        return components.filter(component => {
             return component.visible === true;
         });
+    }
+
+    mounted() {
+        let activeUiKit = this.$store.state.builder.activeUiKit;
+        let components = this.components;
+
         // if current active uikit then create page blocks 
         if(components[0] && components[0].uikit !== activeUiKit) {
             // set the active ui kit
             this.$store.dispatch('builder/updateActiveUiKit', components[0].uikit);
             this.createPages(components);
         }
+    }
+
+    private getCategoryItems(category) {
+        const components = this.components;
+        return filter(components, {
+            category,
+        });
+    }
+
+    get categories() {
+        const components = this.components;
+
+        const categories = uniqBy(components, 'category').map(item => {
+            let component: any = item;
+            return {
+                id: component.category,
+                name: upperFirst(component.category),
+            };
+        });
+        return categories;
+    }
+
+    private getSelectedPage(component) {
+        let pages = this.pages;
+
+        let page = pages.find(page => {
+            return component.name === page.name;
+        });
+
+        return page;
     }
 
     private createPages(components) {
@@ -44,7 +90,7 @@ export default class PageBlock extends Vue {
                 element: 'div',
                 data: {},
                 properties: {},
-                children: this.injectComponent(component)
+                children: this.injectComponent(component),
             };
             page.path = `/${dasherize(component.name)}`;
             pages.push(page);
@@ -55,10 +101,11 @@ export default class PageBlock extends Vue {
         });
     }
 
-    private updateSelectedPage(page) {
+    private updateSelectedPage(component) {
         const sourceCode = this.$store.state.builder.sourceCode;
         const isHashRoute = sourceCode.isHashRoute;
         const frame = <HTMLIFrameElement>document.getElementById('sandbox');
+        const page = this.getSelectedPage(component);
         frame.contentWindow.postMessage(
             { type: 'route-change', isHash: isHashRoute, codesandbox: true, path: page.path },
             '*',
@@ -125,8 +172,12 @@ export default class PageBlock extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
+.page-block-wrapper {
+    padding: 5px 0;
+}
+
 .card {
-    text-align: center;
     margin: 8px 0;
     cursor: pointer;
 
@@ -135,8 +186,41 @@ export default class PageBlock extends Vue {
         background: transparent;
     }
 
-    h3 {
-        font-weight: 400;
+    h4 {
+        font-weight: 600;
+    }
+
+    .title {
+        display: inline-block;
+        width: 100%;
+        height: 20px;
+
+        .icon {
+            float: left;
+            line-height: 22px;
+        }
+
+        .text {
+            float: left;
+            padding: 0 10px;
+        }
+
+        span {
+            float: right;
+            font-size: 10px;
+            text-transform: capitalize;
+            color: #8a909d;
+            font-weight: 500;
+        }
+    }
+
+    .desc {
+        font-size: 12px;
+        color: #979797;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-left: 26px;
     }
 }
 
@@ -144,5 +228,15 @@ export default class PageBlock extends Vue {
 .selected:hover {
     border: 1px solid #1579b3 !important;
     transition: border-color 1s ease;
+}
+
+.item-wrapper {
+    padding: 10px 0;
+
+    h4 {
+        padding: 0 5px;
+        color: #929292;
+        font-weight: 500;
+    }
 }
 </style>

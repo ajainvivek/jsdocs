@@ -50,7 +50,7 @@ import RightSidePanel from './../RightSidePanel';
     },
 })
 export default class Home extends Vue {
-    private split1 = 0.12;
+    private split1 = 0.2;
     private split2 = 0.2;
     private split3 = 0.75;
     private split4 = 0.4;
