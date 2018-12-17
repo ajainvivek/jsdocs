@@ -33,9 +33,8 @@ export default class TreeBlock extends Vue {
     }
 
     private onNodeSelected(node) {
-        const { id, data } = node;
         this.$store.dispatch('builder/updateSelectedNode', {
-            id,
+            id: node.data.data.id,
             data: node.data.data,
         });
     }

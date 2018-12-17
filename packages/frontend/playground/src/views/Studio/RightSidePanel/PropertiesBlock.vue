@@ -105,7 +105,6 @@ export default class PropertiesBlock extends Vue {
         keys.forEach((key, index) => {
             const type = properties[key].type;
             const values = properties[key].values;
-
             let formComponent = Form[inputType];
             let props = {};
             const appliedProperties = selectedComponent.appliedProperties || {};
