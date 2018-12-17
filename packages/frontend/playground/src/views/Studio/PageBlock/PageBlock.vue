@@ -9,7 +9,6 @@
 						<div class="title">
 							<Icon :type="component.icon" class="icon" size="16" />
 							<h4 class="text">{{component.title}}</h4>
-							<span>({{component.uikit}})</span>
 						</div>
 						<p class="desc">{{component.info}}</p>
 					</Card>

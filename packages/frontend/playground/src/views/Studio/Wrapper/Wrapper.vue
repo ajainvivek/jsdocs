@@ -2,31 +2,24 @@
 	<div class="home">
 		<Split v-model="split1">
 			<div slot="left" class="pu-split-pane padding-10">
-				<LeftSidePanel></LeftSidePanel>
-			</div>
-			<div slot="right" class="pu-split-pane">
-				<Split v-model="split2">
-					<div slot="left" class="pu-split-pane padding-10">
-						<Split v-model="split4" mode="vertical">
-							<div slot="top" class="pu-split-pane">
-								<TreeBlock></TreeBlock>
-							</div>
-							<div slot="bottom" class="pu-split-pane padding-10">
-								<ComponentsBlock></ComponentsBlock>
-							</div>
-						</Split>
+				<Split v-model="split2" mode="vertical">
+					<div slot="top" class="pu-split-pane">
+						<PageBlock></PageBlock>
 					</div>
-					<div slot="right" class="pu-split-pane">
-						<Split v-model="split3">
-							<div slot="left" class="pu-split-pane preview">
-								<PreviewBlock></PreviewBlock>
-							</div>
-							<div slot="right" class="pu-split-pane">
-								<RightSidePanel></RightSidePanel>
-							</div>
-						</Split>
+					<div slot="bottom" class="pu-split-pane padding-10">
+						<TreeBlock></TreeBlock>
 					</div>
 				</Split>
+			</div>
+			<div slot="right" class="pu-split-pane">
+				<Split v-model="split3">
+						<div slot="left" class="pu-split-pane preview">
+							<PreviewBlock></PreviewBlock>
+						</div>
+						<div slot="right" class="pu-split-pane">
+							<RightSidePanel></RightSidePanel>
+						</div>
+					</Split>
 			</div>
 		</Split>
 	</div>
@@ -34,26 +27,23 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import LeftSidePanel from './../LeftSidePanel';
+import PageBlock from './../PageBlock';
 import TreeBlock from './../TreeBlock';
-import ComponentsBlock from './../ComponentsBlock';
 import PreviewBlock from './../PreviewBlock';
 import RightSidePanel from './../RightSidePanel';
 
 @Component({
     components: {
-        LeftSidePanel,
+        PageBlock,
         TreeBlock,
-        ComponentsBlock,
         PreviewBlock,
         RightSidePanel,
     },
 })
 export default class Home extends Vue {
     private split1 = 0.2;
-    private split2 = 0.2;
+    private split2 = 0.7;
     private split3 = 0.75;
-    private split4 = 0.4;
 }
 </script>
 
