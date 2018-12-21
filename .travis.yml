@@ -14,7 +14,6 @@ matrix:
     env: PACKAGE_LOCATION=packages/frontend/playground PACKAGE_NAME=playground-ui
 
 script:
-  - lerna bootstrap
   - lerna run --scope playground-ui build
   - cd $PACKAGE_LOCATION
 
