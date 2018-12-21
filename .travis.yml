@@ -14,8 +14,8 @@ matrix:
     env: PACKAGE_LOCATION=packages/frontend/playground PACKAGE_NAME=playground-ui
 
 script:
+  - lerna run --scope playground-ui build
   - cd $PACKAGE_LOCATION
-  - yarn build
 
 deploy:
   provider: script
