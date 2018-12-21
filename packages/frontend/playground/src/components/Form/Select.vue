@@ -16,6 +16,7 @@ import { isEmpty } from 'lodash';
     props: ['data'],
 })
 export default class DropDown extends Vue {
+    private data: any = this.data;
     private isDropDownVisible = false;
     get isClearable() {
         return !this.data.default;

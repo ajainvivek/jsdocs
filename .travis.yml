@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - "10.9.0"
+
+cache: yarn
+
+install:
+  - yarn global add lerna jest now
+  - lerna bootstrap
+
+matrix:
+  include:
+  - name: Playground UI Pipeline
+    env: PACKAGE_LOCATION=packages/frontend/playground PACKAGE_NAME=playground-ui
+
+script:
+  - cd $PACKAGE_LOCATION
+  - yarn build
+
+deploy:
+  provider: script
+  script: now public --token $NOW_TOKEN
+  skip_cleanup: true
+  app: $PACKAGE_NAME

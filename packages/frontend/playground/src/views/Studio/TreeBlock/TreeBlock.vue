@@ -7,14 +7,13 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { find, merge } from 'lodash';
-import LiquorTree from 'liquor-tree';
-import { VTree, VSelectTree } from 'vue-tree-halower'
+import { VTree, VSelectTree } from 'vue-tree-halower';
 import 'vue-tree-halower/dist/halower-tree.min.css';
 
 @Component({
     components: {
         'v-select-tree': VSelectTree,
-        'v-tree': VTree
+        'v-tree': VTree,
     },
 })
 export default class TreeBlock extends Vue {
@@ -26,8 +25,8 @@ export default class TreeBlock extends Vue {
                     id: page.children[0] && page.children[0].id,
                     data: page.children[0],
                 });
-            } catch(error) {
-                console.error('component selection failed!');
+            } catch (error) {
+                // console.log('component selection failed!');
             }
         });
     }
@@ -40,11 +39,11 @@ export default class TreeBlock extends Vue {
     }
 
     private constructBodyNode(data) {
-        let node: any = [];
-        let children = data.children;
+        const node: any = [];
+        const children = data.children;
         if (Array.isArray(children)) {
-            children.forEach(item => {
-                let leaf: any = {
+            children.forEach((item) => {
+                const leaf: any = {
                     title: item.title || item.name || item.element,
                     data: {
                         id: item.id || null, // TODO fetch id
@@ -71,12 +70,12 @@ export default class TreeBlock extends Vue {
             const jsonTree = JSON.parse(atob(currentView.json_buffer));
             pageTree = this.constructBodyNode(jsonTree);
         }
-        let root = [
+        const root = [
             {
                 title: 'Component',
                 expanded: true,
                 children: pageTree,
-                selDisabled: true
+                selDisabled: true,
             },
         ];
 

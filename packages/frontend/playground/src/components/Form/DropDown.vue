@@ -1,17 +1,16 @@
 <template>
-	<div class="drop-down-container" v-if="!isVisible">
-		<Dropdown>
-			<Button long>
-				Add Child
-				<Icon type="ios-arrow-down"></Icon>
-			</Button>
-			<DropdownMenu slot="list">
-				<div v-for="child in childrens" :key="child.id" @click="onClick(child)">
-					<DropdownItem>{{child.title}}</DropdownItem>
-				</div>
-			</DropdownMenu>
-		</Dropdown>
-	</div>
+  <div class="drop-down-container" v-if="!isVisible">
+    <Dropdown>
+      <Button long>Add Child
+        <Icon type="ios-arrow-down"></Icon>
+      </Button>
+      <DropdownMenu slot="list">
+        <div v-for="child in childrens" :key="child.id" @click="onClick(child)">
+          <DropdownItem>{{child.title}}</DropdownItem>
+        </div>
+      </DropdownMenu>
+    </Dropdown>
+  </div>
 </template>
 
 <script lang="ts">
@@ -23,7 +22,8 @@ import { recursiveComponentInject, injectFakeData, uniqueStringId } from '@/help
     props: ['data'],
 })
 export default class DropDown extends Vue {
-    private isDropDownVisible = false;
+    private isDropDownVisible: boolean = false;
+    private data: any = this.data;
     get isVisible() {
         return isEmpty(this.data);
     }
@@ -32,7 +32,7 @@ export default class DropDown extends Vue {
     }
     private onClick(data) {
         const components = this.$store.state.builder.components;
-        let component = find(components, {
+        const component = find(components, {
             id: data.id,
         });
         this.injectChildComponent(component);

@@ -1,0 +1,9 @@
+
+{
+    "type": "static",
+    "alias": "jsdocs-playground-ui",
+    "static": {
+        "public": "dist"
+    },
+    "public": true
+}

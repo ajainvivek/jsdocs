@@ -1,47 +1,71 @@
 <template>
-	<div class="select-actions-container" v-if="!isVisible">
-		<div>
-			<Card :bordered="false">
-				<p slot="title">
-					Actions
-					<Poptip class="tooltip" trigger="hover" :content="info" word-wrap width="200" placement="left-end">
-						<Icon type="ios-information-circle-outline" />
-					</Poptip>
-				</p>
-				<Row>
-					<Col span="24">
-					<Dropdown>
-						<Button long>
-							Add Action
-							<Icon type="ios-arrow-down"></Icon>
-						</Button>
-						<DropdownMenu slot="list">
-							<div v-for="action in unselectedActions" :key="action.id" @click="onSelectionClick(child)">
-								<DropdownItem>{{action.title}}</DropdownItem>
-							</div>
-						</DropdownMenu>
-					</Dropdown>
-					</Col>
-				</Row>
-				<Divider dashed />
-				<Row v-for="action in selectedActions" :key="action.id">
-					<Col span="16">
-					<Button long type="dashed">{{action.value}}</Button>
-					</Col>
-					<Col span="4">
-					<Poptip class="tooltip" trigger="hover" content="Link the action">
-						<Button size="large" class="data-btn" icon="ios-link" type="info" shape="circle" ghost></Button>
-					</Poptip>
-					</Col>
-					<Col span="4">
-					<Poptip class="tooltip" trigger="hover" content="Remove the action" placement="left-end">
-						<Button size="large" class="data-btn" icon="ios-trash-outline" type="primary" shape="circle" ghost></Button>
-					</Poptip>
-					</Col>
-				</Row>
-			</Card>
-		</div>
-	</div>
+  <div class="select-actions-container" v-if="!isVisible">
+    <div>
+      <Card :bordered="false">
+        <p slot="title">Actions
+          <Poptip
+            class="tooltip"
+            trigger="hover"
+            :content="info"
+            word-wrap
+            width="200"
+            placement="left-end"
+          >
+            <Icon type="ios-information-circle-outline"/>
+          </Poptip>
+        </p>
+        <Row>
+          <Col span="24">
+            <Dropdown>
+              <Button long>Add Action
+                <Icon type="ios-arrow-down"></Icon>
+              </Button>
+              <DropdownMenu slot="list">
+                <div v-for="action in unselectedActions" :key="action.id">
+                  <DropdownItem>{{action.title}}</DropdownItem>
+                </div>
+              </DropdownMenu>
+            </Dropdown>
+          </Col>
+        </Row>
+        <Divider dashed/>
+        <Row v-for="action in selectedActions" :key="action.id">
+          <Col span="16">
+            <Button long type="dashed">{{action.value}}</Button>
+          </Col>
+          <Col span="4">
+            <Poptip class="tooltip" trigger="hover" content="Link the action">
+              <Button
+                size="large"
+                class="data-btn"
+                icon="ios-link"
+                type="info"
+                shape="circle"
+                ghost
+              ></Button>
+            </Poptip>
+          </Col>
+          <Col span="4">
+            <Poptip
+              class="tooltip"
+              trigger="hover"
+              content="Remove the action"
+              placement="left-end"
+            >
+              <Button
+                size="large"
+                class="data-btn"
+                icon="ios-trash-outline"
+                type="primary"
+                shape="circle"
+                ghost
+              ></Button>
+            </Poptip>
+          </Col>
+        </Row>
+      </Card>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -53,18 +77,19 @@ import { recursiveComponentInject, injectFakeData, uniqueStringId } from '@/help
     props: ['data'],
 })
 export default class SelectActions extends Vue {
-    private selectedActions = [];
-    private unselectedActions = [];
+    private data = this.data;
+    private selectedActions: any[] = [];
+    private unselectedActions: any[] = [];
 
     get info() {
-        return 'Methods to be mixed into the instance. You can access these methods directly on the VM instance, or use them in directive expressions.';
+        return `Methods to be mixed into the instance.`;
     }
 
     get isVisible() {
         return isEmpty(this.data);
     }
 
-    created() {
+    private created() {
         this.unselectedActions = [
             {
                 id: 1,
@@ -79,8 +104,6 @@ export default class SelectActions extends Vue {
             },
         ];
     }
-
-    private onSelectionClick() {}
 }
 </script>
 

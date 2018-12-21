@@ -1,35 +1,46 @@
 <template>
-	<div class="page-preview-block-wrapper">
-		<div class="header">
-			<Affix :offset-top="60">
-				<Tooltip content="Preview Source Code" theme="light" class="float-right">
-					<Button class="space" @click="openCodePreview">
-						<Icon type="md-code" size="20" />
-					</Button>
-				</Tooltip>
-				<Tooltip content="Fullscreen Preview" theme="light" class="float-right">
-					<Button class="space" @click="togglePreviewView">
-						<Icon type="md-resize" size="20" />
-					</Button>
-				</Tooltip>
-			</Affix>
-		</div>
-		<div class="main">
-			<Frame ref="preview" />
-		</div>
-		<Modal v-model="isCodePreview" fullscreen>
-			<p slot="header">
-				<span>{{currentView && currentView.title}}</span>
-			</p>
-			<div>
-				<CodePreview :code="currentView.code" ref="codepreview"></CodePreview>
-			</div>
-			<div slot="footer">
-				<Button icon="md-clipboard" class="preview-btn" size="large" @click="copyToClipboard">Copy File</Button>
-				<Button icon="md-code-download" class="preview-btn" type="primary" size="large" @click="downloadFile">Download File</Button>
-			</div>
-		</Modal>
-	</div>
+  <div class="page-preview-block-wrapper">
+    <div class="header">
+      <Affix :offset-top="60">
+        <Tooltip content="Preview Source Code" theme="light" class="float-right">
+          <Button class="space" @click="openCodePreview">
+            <Icon type="md-code" size="20"/>
+          </Button>
+        </Tooltip>
+        <Tooltip content="Fullscreen Preview" theme="light" class="float-right">
+          <Button class="space" @click="togglePreviewView">
+            <Icon type="md-resize" size="20"/>
+          </Button>
+        </Tooltip>
+      </Affix>
+    </div>
+    <div class="main">
+      <Frame ref="preview"/>
+    </div>
+    <Modal v-model="isCodePreview" fullscreen>
+      <p slot="header">
+        <span>{{currentView && currentView.title}}</span>
+      </p>
+      <div>
+        <CodePreview :code="currentView.code" ref="codepreview"></CodePreview>
+      </div>
+      <div slot="footer">
+        <Button
+          icon="md-clipboard"
+          class="preview-btn"
+          size="large"
+          @click="copyToClipboard"
+        >Copy File</Button>
+        <Button
+          icon="md-code-download"
+          class="preview-btn"
+          type="primary"
+          size="large"
+          @click="downloadFile"
+        >Download File</Button>
+      </div>
+    </Modal>
+  </div>
 </template>
 
 <script lang="ts">
@@ -53,29 +64,29 @@ export default class PreviewBlock extends Vue {
     }
 
     get sandboxUrl() {
-        const url: string = process.env.production ? '/__browserfs__/' : 'http://localhost:3000/frame.html';
+        const url: any = process.env.SANDBOX_URL;
         return url;
     }
 
     private openCodePreview() {
         this.isCodePreview = true;
-        let codepreview: any = this.$refs.codepreview;
+        const codepreview: any = this.$refs.codepreview;
         codepreview.refresh();
     }
 
     private updateSelectedPage(page) {
         const sourceCode = this.$store.state.builder.sourceCode;
         const isHashRoute = sourceCode.isHashRoute;
-        const frame = <HTMLIFrameElement>document.getElementById('sandbox');
-        frame.contentWindow.postMessage(
+        const frame = document.getElementById('sandbox') as HTMLIFrameElement;
+        frame.contentWindow!.postMessage(
             { type: 'route-change', isHash: isHashRoute, codesandbox: true, path: page.path },
             '*',
         );
     }
 
     private updateCurrentView(sourceCode, path) {
-        let currentView = this.$store.state.builder.currentView || {};
-        let selectedView = find(sourceCode.modules, {
+        const currentView = this.$store.state.builder.currentView || {};
+        const selectedView = find(sourceCode.modules, {
             path,
         });
         if (selectedView) {
@@ -114,7 +125,7 @@ export default class PreviewBlock extends Vue {
         const currentView = this.$store.state.builder.currentView;
         const code = currentView.code;
         if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
-            let textarea = document.createElement('textarea');
+            const textarea = document.createElement('textarea');
             textarea.textContent = code;
             textarea.style.position = 'fixed'; // Prevent scrolling to bottom of page in MS Edge.
             document.body.appendChild(textarea);
@@ -123,7 +134,6 @@ export default class PreviewBlock extends Vue {
                 this.$Message.success('File copied to clipboard');
                 return document.execCommand('copy'); // Security exception may be thrown by some browsers.
             } catch (ex) {
-                console.warn('Copy to clipboard failed.', ex);
                 return false;
             } finally {
                 document.body.removeChild(textarea);
@@ -131,18 +141,18 @@ export default class PreviewBlock extends Vue {
         }
     }
 
-    mounted() {
-        const frame = <HTMLIFrameElement>document.getElementById('sandbox');
+    private mounted() {
+        const frame = document.getElementById('sandbox') as HTMLIFrameElement;
 
         // Bind Event Listener to observe frame incoming messages
         window.addEventListener(
             'message',
             event => {
-                let sourceCode = this.$store.state.builder.sourceCode;
-                let currentView = this.$store.state.builder.currentView || {};
+                const sourceCode = this.$store.state.builder.sourceCode;
+                const currentView = this.$store.state.builder.currentView || {};
                 if (event) {
                     if (event.data && event.data.type === 'initialized') {
-                        frame.contentWindow.postMessage(
+                        frame.contentWindow!.postMessage(
                             { type: 'raw-compile', raw: sourceCode, codesandbox: true },
                             '*',
                         );

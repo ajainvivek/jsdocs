@@ -14,6 +14,7 @@ import { isEmpty } from 'lodash';
     props: ['data'],
 })
 export default class InputDigit extends Vue {
+    private data: any = this.data;
     get title() {
         return this.data ? this.data.title : '';
     }

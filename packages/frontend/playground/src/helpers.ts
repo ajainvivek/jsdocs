@@ -3,11 +3,10 @@ import shortid from 'shortid';
 import jsontoui from 'jsontoui';
 import faker from 'faker';
 import { camelCase, upperFirst, startCase, find, filter } from 'lodash';
-import { AnySrvRecord } from 'dns';
 
-export const generatePage = function (data) {
-    let id = uuid();
-    let name = upperFirst(camelCase(data.name));
+export const generatePage = data => {
+    const id = uuid();
+    const name = upperFirst(camelCase(data.name));
     const template = Object.assign(data.template, {
         name,
         id,
@@ -18,10 +17,10 @@ export const generatePage = function (data) {
             title: `This is your ${startCase(name)} page, start dragging and dropping components.`,
         },
     });
-    let code = jsontoui(template, data.lang, {
+    const code = jsontoui(template, data.lang, {
         format: true,
     });
-    let json_buffer = btoa(JSON.stringify(template));
+    const jsonBuffer = btoa(JSON.stringify(template));
     let extension = '';
     switch (data.lang) {
         case 'vue':
@@ -41,24 +40,27 @@ export const generatePage = function (data) {
         id,
         directory_shortid: data.directory_shortid,
         code,
-        name: name,
-        json_buffer,
+        name,
+        json_buffer: jsonBuffer,
     };
 };
 
-export const updatePage = function ({ template, lang }) {
-    let code = jsontoui(template, lang, {
+export const updatePage = ({ template, lang }) => {
+    const code = jsontoui(template, lang, {
         format: true,
     });
     return code;
 };
 
-export const uniqueStringId = function () {
-    return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+export const uniqueStringId = () => {
+    return Math.random()
+        .toString(36)
+        .replace(/[^a-z]+/g, '')
+        .substr(2, 10);
 };
 
 const contructRoutePath = (path = '', dirs, shortid) => {
-    let dir: any = find(dirs, {
+    const dir: any = find(dirs, {
         shortid,
     });
     if (dir.title !== 'src') {
@@ -68,7 +70,7 @@ const contructRoutePath = (path = '', dirs, shortid) => {
     return `./${path.substring(1)}`;
 };
 
-export const generateRoute = function ({ pages, sourceCode, lang }) {
+export const generateRoute = ({ pages, sourceCode, lang }) => {
     const pageDirectory: any = find(sourceCode.directories, {
         title: 'pages',
     });
@@ -91,70 +93,72 @@ export const generateRoute = function ({ pages, sourceCode, lang }) {
     });
 };
 
-export const generatePlugins = function ({ external, lang }) {
+export const generatePlugins = ({ external, lang }) => {
     return jsontoui(external, lang, {
         isCommons: true,
     });
 };
 
-export const dasherize = function (string) {
-    return string.replace(/[A-Z]/g, function (char, index) {
+export const dasherize = str => {
+    return str.replace(/[A-Z]/g, (char, index) => {
         return (index !== 0 ? '-' : '') + char.toLowerCase();
     });
 };
 
-export const recursiveComponentUpdate = function (components: any = [], filter, component: any = {}) {
-    let { properties = {}, actions = {}, data = {} } = component;
-    for (let i = 0; i < components.length; i++) {
-        if (components[i]['id'] === filter.id) {
-            components[i]['properties'] = components[i]['properties'] || {};
-            components[i]['properties'] = Object.assign(components[i]['properties'], properties);
-            components[i]['data'] = components[i]['data'] || {};
-            components[i]['data'] = Object.assign(components[i]['data'], data);
-            components[i]['actions'] = components[i]['actions'] || {};
-            components[i]['actions'] = Object.assign(components[i]['actions'], actions);
-            break;
+export const recursiveComponentUpdate = (components: any = [], filter, updatedComponent: any = {}) => {
+    const { properties = {}, actions = {}, data = {} } = updatedComponent;
+
+    components.forEach(component => {
+        if (component['id'] === filter.id) {
+            component['properties'] = component['properties'] || {};
+            component['properties'] = Object.assign(component['properties'], properties);
+            component['data'] = component['data'] || {};
+            component['data'] = Object.assign(component['data'], data);
+            component['actions'] = component['actions'] || {};
+            component['actions'] = Object.assign(component['actions'], actions);
         }
-        if (components[i]['id'] && Array.isArray(components[i]['children'])) {
-            components[i]['children'] = recursiveComponentUpdate(
-                components[i]['children'],
-                filter,
-                component,
-            );
+        if (component['id'] && Array.isArray(component['children'])) {
+            component['children'] = recursiveComponentUpdate(component['children'], filter, updatedComponent);
         }
-    }
+    });
     return components;
 };
 
-export const recursiveComponentInject = function (components: any = [], filter, component = {}) {
-    for (let i = 0; i < components.length; i++) {
-        if (components[i]['id'] === filter.id) {
-            components[i]['children'] = components[i]['children'] || [];
-            components[i]['children'].push(component);
-            break;
+export const recursiveComponentInject = (components: any = [], filter, updatedComponent = {}) => {
+    components.forEach(component => {
+        if (component['id'] === filter.id) {
+            component['children'] = component['children'] || [];
+            component['children'].push(component);
         }
-        if (components[i]['id'] && Array.isArray(components[i]['id']['children'])) {
-            components[i]['id']['children'] = recursiveComponentInject(
-                components[i]['id']['children'],
+        if (component['id'] && Array.isArray(component['id']['children'])) {
+            component['id']['children'] = recursiveComponentInject(
+                component['id']['children'],
                 filter,
-                component,
+                updatedComponent,
             );
         }
-    }
+    });
+
     return components;
 };
 
-export const injectFakeData = function (component) {
-    let replaceFakeData = (content) => {
+export const injectFakeData = component => {
+    const replaceFakeData = content => {
         if (typeof content === 'string') {
-            content = faker.fake(content.replace(/{{/g, '<<<').replace(/}}/, '>>>').replace(/\(\(/g, '{{').replace(/\)\)/g, '}}'));
+            content = faker.fake(
+                content
+                    .replace(/{{/g, '<<<')
+                    .replace(/}}/, '>>>')
+                    .replace(/\(\(/g, '{{')
+                    .replace(/\)\)/g, '}}'),
+            );
             return content.replace(/<<</g, '{{').replace(/>>>/, '}}');
         }
         return content;
-    }
-    let replaceNestedProperties = (properties) => {
-        let keys = Object.keys(properties);
-        keys.forEach((key) => {
+    };
+    const replaceNestedProperties = properties => {
+        const keys = Object.keys(properties);
+        keys.forEach(key => {
             if (typeof properties[key] === 'object' && !Array.isArray(properties[key])) {
                 replaceNestedProperties(properties[key]);
             } else {
@@ -162,7 +166,7 @@ export const injectFakeData = function (component) {
             }
         });
         return properties;
-    }
+    };
     if (typeof component.content === 'string') {
         component.content = replaceFakeData(component.content);
     }
@@ -170,5 +174,4 @@ export const injectFakeData = function (component) {
         component.properties = replaceNestedProperties(component.properties);
     }
     return component;
-}
-
+};

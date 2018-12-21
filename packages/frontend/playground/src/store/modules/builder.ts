@@ -3,14 +3,7 @@ import sourceCode from '@/assets/data/templates/vue-router.json';
 import uikit from '@/assets/data/dependencies/uikit/all.json';
 
 import { find, compact, remove, merge } from 'lodash';
-import {
-    generatePage,
-    generateRoute,
-    generatePlugins,
-    updatePage,
-    dasherize,
-    recursiveComponentUpdate,
-} from '@/helpers';
+import { generatePage, generateRoute, generatePlugins, updatePage, recursiveComponentUpdate } from '@/helpers';
 
 interface PageLayout {
     id: number;
@@ -23,7 +16,7 @@ const state = {
     pageTree: [],
     isLayoutDrawerOpen: false,
     currentView: null,
-    sourceCode: sourceCode,
+    sourceCode,
     sandboxFrame: null,
     activeDirectory: 'page',
     currentDrawerView: null,
@@ -32,7 +25,7 @@ const state = {
     components: [],
     lang: 'vue',
     selectedNode: {},
-    activeUiKit: ''
+    activeUiKit: '',
 };
 
 // Getters - to compute derived state based on store state, for example filtering through a list of items
@@ -41,7 +34,7 @@ const getters = {
         return pageLayouts;
     },
     selectedComponent(state): any {
-        let selected = (state.selectedNode) || null;
+        const selected = state.selectedNode || null;
         let selectedComponent: any = {};
         if (selected && selected.data) {
             selectedComponent = find(state.components, {
@@ -77,38 +70,34 @@ const mutations = {
 
         // append all the pages and exclude old pages
         state.sourceCode.modules = [
-            ...state.sourceCode.modules.filter((module) => module.directory_shortid !== pageDirectory.shortid)
+            ...state.sourceCode.modules.filter(module => module.directory_shortid !== pageDirectory.shortid),
         ];
     },
-    createPages(state, {pages, router}) {
-        let frame = <HTMLIFrameElement>document.getElementById('sandbox');
+    createPages(state, { pages, router }) {
+        const frame = document.getElementById('sandbox') as HTMLIFrameElement;
 
         if (state.sourceCode && state.sourceCode.modules) {
-
             // append all the pages and exclude old pages
-            state.sourceCode.modules = [
-                ...state.sourceCode.modules,
-                ...pages,
-            ];
+            state.sourceCode.modules = [...state.sourceCode.modules, ...pages];
 
             // add router module
-            let routerModule: any = find(state.sourceCode.modules, {
+            const routerModule: any = find(state.sourceCode.modules, {
                 shortid: state.sourceCode.shared.router,
             });
             routerModule.code = router;
 
             state.sourceCode.modules = [
                 ...state.sourceCode.modules.filter(module => module.id !== routerModule.id),
-                routerModule
+                routerModule,
             ];
-            
+
             frame.contentWindow!.postMessage({ type: 'raw-compile', raw: state.sourceCode, codesandbox: true }, '*');
             state.currentView = pages[0];
         }
     },
     // update the current view
     updateModuleCode(state, { id, directory_shortid, code, plugin, isRemoveDependency, jsonView }) {
-        let frame = <HTMLIFrameElement>document.getElementById('sandbox');
+        const frame = document.getElementById('sandbox') as HTMLIFrameElement;
         if (state.sourceCode && state.sourceCode.modules) {
             let pluginsModule: any = null;
             // if comprises all commons external dependency module like css, imgs, icons etc...
@@ -117,7 +106,7 @@ const mutations = {
                 if (!isRemoveDependency) {
                     dependencies = merge(state.sourceCode.code_dependencies, plugin);
                 } else {
-                    let pluginKeys = Object.keys(plugin || {});
+                    const pluginKeys = Object.keys(plugin || {});
                     pluginKeys.forEach(key => {
                         if (plugin[key]) {
                             dependencies[key] = remove(state.sourceCode.code_dependencies[key], plugin[key]);
@@ -130,7 +119,7 @@ const mutations = {
                 });
                 pluginsModule.code = pluginCode;
             }
-            let module: any = find(state.sourceCode.modules, {
+            const module: any = find(state.sourceCode.modules, {
                 id,
                 directory_shortid,
             });
@@ -145,7 +134,10 @@ const mutations = {
             ]);
             state.currentView = module;
             if (frame && frame.contentWindow) {
-                frame.contentWindow!.postMessage({ type: 'raw-compile', raw: state.sourceCode, codesandbox: true }, '*');
+                frame.contentWindow!.postMessage(
+                    { type: 'raw-compile', raw: state.sourceCode, codesandbox: true },
+                    '*',
+                );
             }
         }
     },
@@ -192,7 +184,7 @@ const actions = {
             title: 'pages',
         });
         const lang = 'vue';
-        const pages = data.pages.map((page) => {
+        const pages = data.pages.map(page => {
             const name = page.template.name;
             const path = page.path;
             page = generatePage({
@@ -206,15 +198,15 @@ const actions = {
 
             return page;
         });
-        
+
         // Remove all existing pages
         commit('removeAllPages');
 
         const router = generateRoute({ pages, sourceCode, lang });
-        
+
         commit('createPages', {
             pages,
-            router
+            router,
         });
     },
     updateModuleCode({ commit }, { id, directory_shortid, code, plugin, isRemoveDependency, jsonView }) {
@@ -269,9 +261,9 @@ const actions = {
 
         dispatch('updateModuleCode', { id, directory_shortid, jsonView: json });
     },
-    updateActiveUiKit({commit, dispatch}, kit) {
+    updateActiveUiKit({ commit, dispatch }, kit) {
         commit('updateActiveUiKit', kit);
-    }
+    },
 };
 
 export const builder = {

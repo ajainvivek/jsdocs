@@ -16,6 +16,9 @@
     "ordered-imports": false,
     "object-literal-sort-keys": false,
     "no-consecutive-blank-lines": false,
-    "no-shadowed-variable": false
+    "no-shadowed-variable": false,
+    "no-string-literal": false,
+    "arrow-parens": false,
+    "whitespace": false
   }
 }

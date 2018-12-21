@@ -1,34 +1,40 @@
 <template>
-	<div class="page-block-wrapper">
-        <Input search placeholder="Search..." />
-        <div class="item-wrapper" v-for="category in categories" :key="category.id">
-			<h4>{{category.name}}</h4>
-			<div class="items">
-                <div v-for="component in getCategoryItems(category.id)" :key="component.id" @click="updateSelectedPage(component)">
-					<Card class="card" shadow :class="{ selected: selectedPage.id === getSelectedPage(component).id }">
-						<div class="title">
-							<Icon :type="component.icon" class="icon" size="16" />
-							<h4 class="text">{{component.title}}</h4>
-						</div>
-						<p class="desc">{{component.info}}</p>
-					</Card>
-				</div>
+  <div class="page-block-wrapper">
+    <Input search placeholder="Search..."/>
+    <div class="item-wrapper" v-for="category in categories" :key="category.id">
+      <h4>{{category.name}}</h4>
+      <div class="items">
+        <div
+          v-for="component in getCategoryItems(category.id)"
+          :key="component.id"
+          @click="updateSelectedPage(component)"
+        >
+          <Card
+            class="card"
+            shadow
+            :class="{ selected: selectedPage.id === getSelectedPage(component).id }"
+          >
+            <div class="title">
+              <Icon :type="component.icon" class="icon" size="16"/>
+              <h4 class="text">{{component.title}}</h4>
             </div>
-		</div>
-	</div>
+            <p class="desc">{{component.info}}</p>
+          </Card>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { find, filter, startCase, uniqBy, upperFirst, merge  } from 'lodash';
+import { find, filter, startCase, uniqBy, upperFirst, merge } from 'lodash';
 import { uniqueStringId, dasherize, injectFakeData } from '@/helpers';
 
 @Component({
-    components: {
-    },
+    components: {},
 })
 export default class PageBlock extends Vue {
-
     get components() {
         const components = this.$store.state.builder.components;
         return components.filter(component => {
@@ -36,12 +42,12 @@ export default class PageBlock extends Vue {
         });
     }
 
-    mounted() {
-        let activeUiKit = this.$store.state.builder.activeUiKit;
-        let components = this.components;
+    private mounted() {
+        const activeUiKit = this.$store.state.builder.activeUiKit;
+        const components = this.components;
 
-        // if current active uikit then create page blocks 
-        if(components[0] && components[0].uikit !== activeUiKit) {
+        // if current active uikit then create page blocks
+        if (components[0] && components[0].uikit !== activeUiKit) {
             // set the active ui kit
             this.$store.dispatch('builder/updateActiveUiKit', components[0].uikit);
             this.createPages(components);
@@ -59,7 +65,7 @@ export default class PageBlock extends Vue {
         const components = this.components;
 
         const categories = uniqBy(components, 'category').map(item => {
-            let component: any = item;
+            const component: any = item;
             return {
                 id: component.category,
                 name: upperFirst(component.category),
@@ -69,9 +75,9 @@ export default class PageBlock extends Vue {
     }
 
     private getSelectedPage(component) {
-        let pages = this.pages;
+        const pages: any[] = this.pages;
 
-        let page = pages.find(page => {
+        const page = pages.find(page => {
             return component.name === page.name;
         });
 
@@ -80,9 +86,9 @@ export default class PageBlock extends Vue {
 
     private createPages(components) {
         const sourceCode = this.$store.state.builder.sourceCode;
-        const pages = [];
+        const pages: any[] = [];
         components.forEach(component => {
-            let page: any = {};
+            const page: any = {};
             page.template = {
                 name: component.name,
                 node: 'page',
@@ -90,8 +96,8 @@ export default class PageBlock extends Vue {
                 data: {},
                 properties: {
                     style: {
-                        padding: '40px'
-                    }
+                        padding: '40px',
+                    },
                 },
                 children: this.injectComponent(component),
             };
@@ -107,18 +113,20 @@ export default class PageBlock extends Vue {
     private updateSelectedPage(component) {
         const sourceCode = this.$store.state.builder.sourceCode;
         const isHashRoute = sourceCode.isHashRoute;
-        const frame = <HTMLIFrameElement>document.getElementById('sandbox');
-        const page = this.getSelectedPage(component);
+        const frame = document.getElementById('sandbox') as HTMLIFrameElement;
+        const page: any = this.getSelectedPage(component);
         // Emit global event of page change
         window.eventBus.$emit('page-changed', {
-            page
+            page,
         });
-        // Update iframe
-        frame.contentWindow.postMessage(
-            { type: 'route-change', isHash: isHashRoute, codesandbox: true, path: page.path },
-            '*',
-        );
-        this.$store.dispatch('builder/updateCurrentView', page);
+        if (frame && frame.contentWindow) {
+            // Update iframe
+            frame.contentWindow!.postMessage(
+                { type: 'route-change', isHash: isHashRoute, codesandbox: true, path: page.path },
+                '*',
+            );
+            this.$store.dispatch('builder/updateCurrentView', page);
+        }
     }
 
     get pages() {
@@ -152,25 +160,25 @@ export default class PageBlock extends Vue {
     private injectComponent(component) {
         const currentView = this.$store.state.builder.currentView;
         const { id, directory_shortid } = currentView;
-        let children = [];
+        const children: any[] = [];
         const sid = uniqueStringId();
         const defaultValue = Object.assign({}, component.default);
 
         // if default component comprises of children then inject the child nodes
         if (defaultValue.children) {
-            let children = [];
-            defaultValue.children.forEach((child) => {
+            let children: any[] = [];
+            defaultValue.children.forEach(child => {
                 const components = this.$store.state.builder.components;
                 const component = find(components, {
-                    id: child.id
+                    id: child.id,
                 });
                 if (child.count) {
                     for (let i = 0; i < child.count; i++) {
-                        let node = this.injectComponent(component);
+                        const node = this.injectComponent(component);
                         children = children.concat(node);
                     }
                 } else {
-                    let node = this.injectComponent(component);
+                    const node: any[] = this.injectComponent(component);
                     children = children.concat(node);
                 }
             });
@@ -195,7 +203,7 @@ export default class PageBlock extends Vue {
         );
 
         component = injectFakeData(component);
-        
+
         children.push(component);
         return children;
     }
@@ -204,7 +212,6 @@ export default class PageBlock extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
 .page-block-wrapper {
     padding: 5px 0;
 }

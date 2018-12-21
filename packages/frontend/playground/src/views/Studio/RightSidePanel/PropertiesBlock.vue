@@ -1,17 +1,17 @@
 <template>
-	<div class="properties-block-wrapper">
-		<Form label-position="top">
-			<div v-for="input in formComponents" :key="input.index">
-				<component :is="input.component" :data="input.data"></component>
-			</div>
-		</Form>
-        <!-- TODO: If not root and child component enable delete option -->
-		<!-- <div class="delete">
+  <div class="properties-block-wrapper">
+    <Form label-position="top">
+      <div v-for="input in formComponents" :key="input.index">
+        <component :is="input.component" :data="input.data"></component>
+      </div>
+    </Form>
+    <!-- TODO: If not root and child component enable delete option -->
+    <!-- <div class="delete">
 			<Poptip confirm title="Are you sure you want to delete this item?" @on-ok="deleteComponent" ok-text="Yes" cancel-text="No">
 				<Button type="primary" long>DELETE</Button>
 			</Poptip>
-		</div> -->
-	</div>
+    </div>-->
+  </div>
 </template>
 
 <script lang="ts">
@@ -23,13 +23,13 @@ import { startCase, pickBy, get } from 'lodash';
 export default class PropertiesBlock extends Vue {
     private selectComponents(properties, selectedComponent) {
         const keys = Object.keys(properties);
-        const components = [];
+        const components: any[] = [];
         keys.forEach((key, index) => {
             const type = properties[key].type;
             const values = properties[key].values;
 
-            let formComponent = '';
-            let props = {};
+            let formComponent: any = '';
+            const props = {};
             if (type === 'string' && Array.isArray(values)) {
                 formComponent = Form.Select;
                 props['options'] = values.map(value => {
@@ -41,7 +41,7 @@ export default class PropertiesBlock extends Vue {
             }
             const appliedProperties = selectedComponent.appliedProperties || {};
             const selected = appliedProperties[key];
-            const input = {
+            const input: any = {
                 id: selectedComponent.uuid || index,
                 component: formComponent,
                 data: Object.assign(
@@ -68,11 +68,11 @@ export default class PropertiesBlock extends Vue {
 
     private selectActionComponents(properties, selectedComponent) {
         const keys = Object.keys(properties);
-        let options = [];
+        const options: any[] = [];
 
         keys.forEach((key, index) => {
-            let formComponent = '';
-            let option: any = {
+            const formComponent = '';
+            const option: any = {
                 title: properties[key].title || '',
                 placeholder: properties[key].placeholder || '',
                 id: selectedComponent.uuid || index,
@@ -102,12 +102,12 @@ export default class PropertiesBlock extends Vue {
 
     private inputComponents(properties, selectedComponent, inputType) {
         const keys = Object.keys(properties);
-        const components = [];
+        const components: any[] = [];
         keys.forEach((key, index) => {
             const type = properties[key].type;
             const values = properties[key].values;
-            let formComponent = Form[inputType];
-            let props = {};
+            const formComponent = Form[inputType];
+            const props = {};
             const appliedProperties = selectedComponent.appliedProperties || {};
             const selected = appliedProperties[key];
             const input: any = {
@@ -131,7 +131,7 @@ export default class PropertiesBlock extends Vue {
                 // if it has model
                 if (inputType === 'InputModel') {
                     if (selectedComponent['data']) {
-                        let data = Object.assign({}, selectedComponent['data']);
+                        const data = Object.assign({}, selectedComponent['data']);
                         input.data.model = data;
                     }
                 }
@@ -145,11 +145,11 @@ export default class PropertiesBlock extends Vue {
 
     private checkboxGroupComp(properties, selectedComponent) {
         const keys = Object.keys(properties);
-        let options = [];
+        const options: any = [];
 
         keys.forEach((key, index) => {
-            let formComponent = '';
-            let option: any = {
+            const formComponent = '';
+            const option: any = {
                 title: properties[key].title || '',
                 placeholder: properties[key].placeholder || '',
                 id: selectedComponent.uuid || index,
@@ -177,7 +177,7 @@ export default class PropertiesBlock extends Vue {
     }
     private dropDownComponent(selectedComponent) {
         if (selectedComponent.children) {
-            let formComponent = Form.DropDown;
+            const formComponent = Form.DropDown;
             const input = {
                 id: selectedComponent.uuid,
                 component: formComponent,
@@ -194,7 +194,7 @@ export default class PropertiesBlock extends Vue {
 
     get formComponents() {
         const selectedComponent = this.$store.getters['builder/selectedComponent'];
-        
+
         const selectProperties = pickBy(selectedComponent.properties || {}, prop => {
             return Array.isArray(prop.values);
         });
@@ -210,18 +210,22 @@ export default class PropertiesBlock extends Vue {
         const inputModelProperty = pickBy(selectedComponent.properties || {}, prop => {
             return prop.isModel;
         });
-        const selectActionsProperties = pickBy(selectedComponent.properties || {}, prop => {
-            return prop.isAction;
-        });
-        const dropDownComponent = this.dropDownComponent(selectedComponent);
-        const checkboxGroupComp = this.checkboxGroupComp(checkboxGroupProperties, selectedComponent);
-        const selectComponents = this.selectComponents(selectProperties, selectedComponent);
-        const inpuTextComponents = this.inputComponents(inputTextProperties, selectedComponent, 'InputText');
-        const inpuNumberComponents = this.inputComponents(inputNumberProperties, selectedComponent, 'InputDigit');
-        const inputModelComponent = this.inputComponents(inputModelProperty, selectedComponent, 'InputModel');
-        const selectActionComponent = this.selectActionComponents(selectActionsProperties, selectedComponent);
+        // const selectActionsProperties = pickBy(selectedComponent.properties || {}, prop => {
+        //     return prop.isAction;
+        // });
+        const dropDownComponent: any[] = this.dropDownComponent(selectedComponent);
+        const checkboxGroupComp: any[] = this.checkboxGroupComp(checkboxGroupProperties, selectedComponent);
+        const selectComponents: any[] = this.selectComponents(selectProperties, selectedComponent);
+        const inpuTextComponents: any[] = this.inputComponents(inputTextProperties, selectedComponent, 'InputText');
+        const inpuNumberComponents: any[] = this.inputComponents(
+            inputNumberProperties,
+            selectedComponent,
+            'InputDigit',
+        );
+        const inputModelComponent: any[] = this.inputComponents(inputModelProperty, selectedComponent, 'InputModel');
+        // const selectActionComponent = this.selectActionComponents(selectActionsProperties, selectedComponent);
 
-        const components: any = selectComponents.concat(
+        const components: any[] = selectComponents.concat(
             inpuTextComponents,
             inpuNumberComponents,
             checkboxGroupComp,

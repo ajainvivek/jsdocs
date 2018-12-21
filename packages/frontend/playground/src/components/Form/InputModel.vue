@@ -1,35 +1,50 @@
 <template>
-	<div class="input-model-container">
-		<Card :bordered="false">
-			<p slot="title">
-				{{title}}
-				<Poptip class="tooltip" trigger="hover" :content="info" word-wrap width="200" placement="left-end">
-					<Icon type="ios-information-circle-outline" />
-				</Poptip>
-			</p>
-			<div>
-				<Row>
-					<Col span="18">
-					<Input :value="value" :placeholder="placeholder" @on-blur="onBlur" />
-					</Col>
-					<Col span="6">
-					<Button size="large" class="data-btn" icon="ios-link" type="info" shape="circle" @click="openJSONEditor" ghost></Button>
-					</Col>
-				</Row>
-			</div>
-		</Card>
-		<Modal v-model="isJSONEditor" fullscreen>
-			<p slot="header">
-				<span>{{title}}</span>
-			</p>
-			<div>
-				<JSONEditor :data="editorValue" ref="jsoneditor" :onChange="onJSONUpdate"></JSONEditor>
-			</div>
-			<div slot="footer">
-				<Button icon="md-clipboard" class="save-btn" size="large" @click="onJSONSave">Save</Button>
-			</div>
-		</Modal>
-	</div>
+  <div class="input-model-container">
+    <Card :bordered="false">
+      <p slot="title">
+        {{title}}
+        <Poptip
+          class="tooltip"
+          trigger="hover"
+          :content="info"
+          word-wrap
+          width="200"
+          placement="left-end"
+        >
+          <Icon type="ios-information-circle-outline"/>
+        </Poptip>
+      </p>
+      <div>
+        <Row>
+          <Col span="18">
+            <Input :value="value" :placeholder="placeholder" @on-blur="onBlur"/>
+          </Col>
+          <Col span="6">
+            <Button
+              size="large"
+              class="data-btn"
+              icon="ios-link"
+              type="info"
+              shape="circle"
+              @click="openJSONEditor"
+              ghost
+            ></Button>
+          </Col>
+        </Row>
+      </div>
+    </Card>
+    <Modal v-model="isJSONEditor" fullscreen>
+      <p slot="header">
+        <span>{{title}}</span>
+      </p>
+      <div>
+        <JSONEditor :data="editorValue" ref="jsoneditor" :onChange="onJSONUpdate"></JSONEditor>
+      </div>
+      <div slot="footer">
+        <Button icon="md-clipboard" class="save-btn" size="large" @click="onJSONSave">Save</Button>
+      </div>
+    </Modal>
+  </div>
 </template>
 
 <script lang="ts">
@@ -44,6 +59,7 @@ import JSONEditor from '@/components/JSONEditor';
     },
 })
 export default class InputModel extends Vue {
+    private data: any = this.data;
     private isJSONEditor: boolean = false;
     private value: string = this.data.value || this.data.default;
     private jsonData: object = this.data.model || {};
@@ -67,7 +83,7 @@ export default class InputModel extends Vue {
         return `data_${this.data.id}`;
     }
 
-    created() {
+    private created() {
         this.value = this.value.replace(`${this.dataKey}.`, '');
     }
 
@@ -75,7 +91,7 @@ export default class InputModel extends Vue {
         try {
             this.jsonData[this.dataKey] = JSON.parse(value);
         } catch (error) {
-            console.error('JSON update failed!');
+            // console.error('JSON update failed!');
         }
     }
     private openJSONEditor() {
@@ -84,7 +100,7 @@ export default class InputModel extends Vue {
             return;
         }
         this.isJSONEditor = true;
-        let jsoneditor: any = this.$refs.jsoneditor;
+        const jsoneditor: any = this.$refs.jsoneditor;
         jsoneditor.refresh();
     }
     private updateComponent() {
@@ -108,7 +124,7 @@ export default class InputModel extends Vue {
     private onBlur(input) {
         // if target exists
         if (input.target) {
-            let value = camelCase(input.target.value);
+            const value = camelCase(input.target.value);
             const prevKey = this.value;
             const newKey = value;
             this.value = value;

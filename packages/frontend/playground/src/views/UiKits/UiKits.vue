@@ -25,7 +25,7 @@ export default class UiKits extends Vue {
         const { parsed } = this.getNpmDependencies();
         const dependencies = this.dataType === 'uikit' ? this.$store.state.builder.uikit : [];
         if (parsed['dependencies']) {
-            dependencies.map(dependency => {
+            dependencies.map((dependency) => {
                 dependency.included = false;
                 if (parsed['dependencies'][dependency.name]) {
                     dependency.included = true;
@@ -39,7 +39,7 @@ export default class UiKits extends Vue {
     private async loadUiKit(dependency) {
         const sourceCode = this.$store.state.builder.sourceCode;
         if (sourceCode.template === dependency.template) {
-            let isDependencyAdded = await this.addNpmDependencyToPackage(dependency);
+            const isDependencyAdded = await this.addNpmDependencyToPackage(dependency);
             if (isDependencyAdded) {
                 this.navigateToStudio();
             }
@@ -51,21 +51,21 @@ export default class UiKits extends Vue {
     }
 
     private sortObjectByKeys(object) {
-        let sorted: any = sortBy(toPairs(object), 0);
+        const sorted: any = sortBy(toPairs(object), 0);
         return fromPairs(sorted);
     }
 
     private allComponentsPromise(components) {
-        const promises = [];
-        components.forEach(component => {
+        const promises: any = [];
+        components.forEach((component) => {
             promises.push(
-                new Promise((resolve, reject) => {
+                new Promise<object>((resolve, reject) => {
                     fetch(`/data/dependencies/uikit/element-ui/${component}.json`)
-                        .then(response => response.json())
-                        .then(data => {
+                        .then((response) => response.json())
+                        .then((data) => {
                             return resolve(data);
                         })
-                        .catch(error => {
+                        .catch((error) => {
                             return reject(error);
                         });
                 }),
@@ -76,9 +76,9 @@ export default class UiKits extends Vue {
 
     private async fetchUiKit(id) {
         if (id) {
-            let uikit = await fetch('/data/dependencies/uikit/element-ui/index.json')
-                .then(response => response.json())
-                .then(data => {
+            const uikit = await fetch('/data/dependencies/uikit/element-ui/index.json')
+                .then((response) => response.json())
+                .then((data) => {
                     return data;
                 });
             if (uikit.data && uikit.data.components) {
@@ -117,9 +117,9 @@ export default class UiKits extends Vue {
         parsed[type][name] = version || 'latest';
         parsed[type] = this.sortObjectByKeys(parsed[type]);
 
-        let code = JSON.stringify(parsed, null, 2);
-        let uikit: any = await this.fetchUiKit(id);
-        let components = (uikit.data && uikit.data.components) || [];
+        const code: string = JSON.stringify(parsed, null, 2);
+        const uikit: any = await this.fetchUiKit(id);
+        const components = (uikit.data && uikit.data.components) || [];
         this.$store.dispatch('builder/addComponents', components);
         this.$store.dispatch('builder/updateModuleCode', {
             id: module.id,
@@ -139,12 +139,12 @@ export default class UiKits extends Vue {
     private async removeNpmDependencyFromPackage(dependency) {
         const { id, name, version, isDev, included } = dependency;
         const { parsed, module } = this.getNpmDependencies();
-        let uikit: any = await this.fetchUiKit(id);
+        const uikit: any = await this.fetchUiKit(id);
 
         delete parsed.dependencies[name];
         parsed.dependencies = this.sortObjectByKeys(parsed.dependencies);
 
-        let code = JSON.stringify(parsed, null, 2);
+        const code: string = JSON.stringify(parsed, null, 2);
 
         this.$store.dispatch('builder/removeComponents', {
             uikit: id,

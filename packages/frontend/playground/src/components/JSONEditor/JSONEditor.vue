@@ -1,7 +1,7 @@
 <template>
-	<div class="code-mirror-container">
-		<codemirror :value="json" ref="codeblock" :options="options" @input="onChange"></codemirror>
-	</div>
+  <div class="code-mirror-container">
+    <codemirror :value="json" ref="codeblock" :options="options" @input="onChange"></codemirror>
+  </div>
 </template>
 
 <script lang="ts">
@@ -51,6 +51,8 @@ import 'codemirror/addon/fold/xml-fold.js';
     },
 })
 export default class JSONEditor extends Vue {
+    private data = this.data;
+
     get json() {
         return JSON.stringify(this.data || {}, null, 2);
     }
@@ -72,14 +74,16 @@ export default class JSONEditor extends Vue {
                 cm.setOption('fullScreen', !cm.getOption('fullScreen'));
             },
             Esc(cm) {
-                if (cm.getOption('fullScreen')) cm.setOption('fullScreen', false);
+                if (cm.getOption('fullScreen')) {
+                    cm.setOption('fullScreen', false);
+                }
             },
         },
     };
 
     public refresh() {
         this.$nextTick(() => {
-            let codeblock: any = this.$refs.codeblock;
+            const codeblock: any = this.$refs.codeblock;
             codeblock.codemirror.refresh();
         });
     }

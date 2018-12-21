@@ -1,7 +1,7 @@
 <template>
-	<div class="code-mirror-container">
-		<codemirror v-model="code" ref="codeblock" :options="options"></codemirror>
-	</div>
+  <div class="code-mirror-container">
+    <codemirror v-model="code" ref="codeblock" :options="options"></codemirror>
+  </div>
 </template>
 
 <script lang="ts">
@@ -62,14 +62,16 @@ export default class CodePreview extends Vue {
                 cm.setOption('fullScreen', !cm.getOption('fullScreen'));
             },
             Esc(cm) {
-                if (cm.getOption('fullScreen')) cm.setOption('fullScreen', false);
+                if (cm.getOption('fullScreen')) {
+                    cm.setOption('fullScreen', false);
+                }
             },
         },
     };
 
     public refresh() {
         this.$nextTick(() => {
-            let codeblock: any = this.$refs.codeblock;
+            const codeblock: any = this.$refs.codeblock;
             codeblock.codemirror.refresh();
         });
     }

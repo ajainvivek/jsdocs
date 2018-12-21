@@ -1,48 +1,54 @@
 <template>
-	<div class="frame-block-wrapper" ref="wrapper">
-		<div class="pu-view" id="pu-viewport" v-bind:class="{ fullscreen: isFullscreen }" ref="frame">
-			<div class="header" v-bind:class="{ fullscreen: isFullscreen }">
-				<div class="pu-radio-btn-group">
-					<RadioGroup type="button" v-model="selectedView">
-						<Radio label="default" data-view="front" id="pu-front-view-btn">Front View</Radio>
-						<Radio label="side" data-view="side" id="pu-side-view-btn">Side View</Radio>
-						<Radio label="laying" data-view="laying" id="pu-laying-view-btn">Laying View</Radio>
-					</RadioGroup>
-				</div>
-				<div class="pu-btn-group float-right">
-					<ButtonGroup size="large" vertical>
-						<Button class="pu-btn" dat id="pu-phone-btn">
-							<Icon type="md-phone-portrait" size="24" />
-						</Button>
-						<Button class="pu-btn" id="pu-tablet-btn">
-							<Icon type="md-tablet-landscape" size="24" />
-						</Button>
-						<Button class="pu-btn" id="pu-desktop-btn">
-							<Icon type="md-laptop" size="24" />
-						</Button>
-						<Button class="pu-btn" id="pu-close-fullscreen">
-							<Icon type="md-contract" size="24" />
-						</Button>
-					</ButtonGroup>
-				</div>
-			</div>
-			<div class="body view_3" id="frame-container">
-				<iframe class="sandbox" scrolling="no" sandbox="allow-forms allow-scripts allow-same-origin allow-modals allow-popups allow-presentation" frameBorder="0" :src="sandboxUrl" id="sandbox" ref="sandbox" title="" style="pointer-events: initial;">
-				</iframe>
-			</div>
-		</div>
-	</div>
+  <div class="frame-block-wrapper" ref="wrapper">
+    <div class="pu-view" id="pu-viewport" v-bind:class="{ fullscreen: isFullscreen }" ref="frame">
+      <div class="header" v-bind:class="{ fullscreen: isFullscreen }">
+        <div class="pu-radio-btn-group">
+          <RadioGroup type="button" v-model="selectedView">
+            <Radio label="default" data-view="front" id="pu-front-view-btn">Front View</Radio>
+            <Radio label="side" data-view="side" id="pu-side-view-btn">Side View</Radio>
+            <Radio label="laying" data-view="laying" id="pu-laying-view-btn">Laying View</Radio>
+          </RadioGroup>
+        </div>
+        <div class="pu-btn-group float-right">
+          <ButtonGroup size="large" vertical>
+            <Button class="pu-btn" dat id="pu-phone-btn">
+              <Icon type="md-phone-portrait" size="24"/>
+            </Button>
+            <Button class="pu-btn" id="pu-tablet-btn">
+              <Icon type="md-tablet-landscape" size="24"/>
+            </Button>
+            <Button class="pu-btn" id="pu-desktop-btn">
+              <Icon type="md-laptop" size="24"/>
+            </Button>
+            <Button class="pu-btn" id="pu-close-fullscreen">
+              <Icon type="md-contract" size="24"/>
+            </Button>
+          </ButtonGroup>
+        </div>
+      </div>
+      <div class="body view_3" id="frame-container">
+        <iframe
+          class="sandbox"
+          scrolling="no"
+          sandbox="allow-forms allow-scripts allow-same-origin allow-modals allow-popups allow-presentation"
+          frameborder="0"
+          :src="sandboxUrl"
+          id="sandbox"
+          ref="sandbox"
+          title
+          style="pointer-events: initial;"
+        ></iframe>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import drag from './../../../directives/drag';
 
 @Component({
     props: {},
-    directives: {
-        drag,
-    },
+    directives: {},
 })
 export default class Frame extends Vue {
     private isFullscreen: boolean = false;

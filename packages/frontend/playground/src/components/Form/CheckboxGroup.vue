@@ -16,7 +16,8 @@ import { isEmpty, camelCase } from 'lodash';
     props: ['data'],
 })
 export default class DropDown extends Vue {
-    private selected = [];
+    private selected: any[] = [];
+    private data: any = this.data;
     get options() {
         return this.data ? this.data.options : [];
     }
