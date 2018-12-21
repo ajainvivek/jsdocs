@@ -1,5 +1,6 @@
 {
     "version": 2,
+    "alias": "jsdocs-playground",
     "builds": [
         { "src": "dist", "use": "@now/static" }
     ]
