@@ -55,7 +55,7 @@ export default class Frame extends Vue {
     private selectedView: string = 'default';
 
     get sandboxUrl() {
-        const url: string = process.env.production ? '/__browserfs__/' : 'http://localhost:3000/frame.html';
+        const url: any = process.env.SANDBOX_URL;
         return url;
     }
     public openFullscreen() {

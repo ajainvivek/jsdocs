@@ -63,11 +63,6 @@ export default class PreviewBlock extends Vue {
         return this.$store.state.builder.currentView || {};
     }
 
-    get sandboxUrl() {
-        const url: any = process.env.SANDBOX_URL;
-        return url;
-    }
-
     private openCodePreview() {
         this.isCodePreview = true;
         const codepreview: any = this.$refs.codepreview;
