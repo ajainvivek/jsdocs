@@ -20,6 +20,6 @@ script:
 
 deploy:
   provider: script
-  script: now jsdocs --token $NOW_TOKEN
+  script: now dist --token $NOW_TOKEN
   skip_cleanup: true
   app: $PACKAGE_NAME
