@@ -20,6 +20,6 @@ script:
 
 deploy:
   provider: script
-  script: now dist --token $NOW_TOKEN && now alias
+  script: now dist --token $NOW_TOKEN -A ../now.json && now alias
   skip_cleanup: true
   app: $PACKAGE_NAME
