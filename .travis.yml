@@ -15,6 +15,7 @@ matrix:
 
 script:
   - cd $PACKAGE_LOCATION
+  - yarn add jsontoui
   - yarn build
 
 deploy:
