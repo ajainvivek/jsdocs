@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import VueAnalytics from 'vue-analytics';
+
 import Studio from './views/Studio';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
@@ -23,3 +25,13 @@ export default new Router({
         },
     ],
 });
+
+Vue.use(VueAnalytics, {
+    id: 'UA-131507096-1',
+    router,
+    autoTracking: {
+        screenview: true,
+    },
+});
+
+export default router;
