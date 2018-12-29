@@ -17,9 +17,10 @@ script:
   - cd $PACKAGE_LOCATION
   - yarn add jsontoui
   - yarn build
+  - cd dist
 
 deploy:
   provider: script
-  script: now dist --token $NOW_TOKEN -A ../now.json
+  script: now alias $(now) studio.jsdocs.io --token $NOW_TOKEN
   skip_cleanup: true
   app: $PACKAGE_NAME
