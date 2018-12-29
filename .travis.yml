@@ -21,6 +21,6 @@ script:
 
 deploy:
   provider: script
-  script: now alias $(now) studio.jsdocs.io --token $NOW_TOKEN
+  script: now --token $NOW_TOKEN alias $(now) studio.jsdocs.io
   skip_cleanup: true
   app: $PACKAGE_NAME
