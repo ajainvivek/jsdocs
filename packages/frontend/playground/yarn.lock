@@ -6748,14 +6748,6 @@ jsonify@~0.0.0:
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
   integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
 
-jsontoui@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/jsontoui/-/jsontoui-0.1.1.tgz#1f756d8ea787965cbc14f7c8b023af2306b7777d"
-  integrity sha512-KCLDi4UIRIS0TPRQRlYRJaN4gaBbjIwsfFSSuqAiC+ixCKF9TI44i83Q+CJiwbMORzf+oXtKocd3GL/ciPdEJg==
-  dependencies:
-    faker "^4.1.0"
-    prettier "^1.15.3"
-
 jsprim@^1.2.2:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/jsprim/-/jsprim-1.4.1.tgz#313e66bc1e5cc06e438bc1b7499c2e5c56acb6a2"
@@ -11304,6 +11296,11 @@ vue-codemirror@^4.0.6:
   dependencies:
     codemirror "^5.41.0"
     diff-match-patch "^1.0.0"
+
+vue-ga@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vue-ga/-/vue-ga-1.0.0.tgz#c890fc529970af10abef2c42c81ea38cfb00cef1"
+  integrity sha1-yJD8UplwrxCr7yxCyB6jjPsAzvE=
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.1"

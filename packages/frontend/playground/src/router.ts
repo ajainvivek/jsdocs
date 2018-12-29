@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Studio from './views/Studio';
+import ga from 'vue-ga';
+
+ga(Router, 'UA-131507096-1');
 
 Vue.use(Router);
 
