@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://ajainvivek.github.io/jsdocs/" target="_blank">
-<img alt="JSDocs" title="JSDocs" src="https://github.com/ajainvivek/jsdocs/blob/master/assets/logo.png" width="550">
+<img alt="JSDocs" title="JSDocs" src="https://github.com/ajainvivek/jsdocs/blob/master/assets/logo.png" width="128">
 </a>
 </p>
 <p align="center">Interactive <b>UI Kit</b> documentation for library and plugins.</p>
