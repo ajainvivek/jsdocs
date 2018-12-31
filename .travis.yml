@@ -24,3 +24,5 @@ deploy:
   script: now --token $NOW_TOKEN alias $(now) studio.jsdocs.io
   skip_cleanup: true
   app: $PACKAGE_NAME
+  on:
+    tags: true

@@ -5,12 +5,8 @@ import store from '@/store';
 import './registerServiceWorker';
 import iView from 'iview';
 import './assets/iview.css';
-import VueAnalytics from 'vue-analytics';
 
 Vue.use(iView);
-Vue.use(VueAnalytics, {
-    id: 'UA-131507096-1',
-});
 
 declare global {
     interface Window {
