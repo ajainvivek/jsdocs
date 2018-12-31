@@ -1,11 +1,11 @@
 <p align="center">
 <a href="https://ajainvivek.github.io/jsdocs/" target="_blank">
-<img alt="JSDocs" title="JSDocs" src="https://github.com/ajainvivek/jsdocs/blob/master/assets/logo.png" width="128">
+<img alt="JSDocs" title="JSDocs" src="https://github.com/ajainvivek/jsdocs/blob/master/assets/logo.png" width="100">
 </a>
 </p>
 <p align="center">Interactive <b>UI Kit</b> documentation for library and plugins.</p>
 
-# [JSDocs](https://studio.jsdocs.io) — Interactive UI Documentation Browser [![Build Status](https://travis-ci.org/ajainvivek/jsdocs.svg?branch=master)](https://travis-ci.org/ajainvivek/jsdocs)
+[![Build Status](https://travis-ci.org/ajainvivek/jsdocs.svg?branch=master)](https://travis-ci.org/ajainvivek/jsdocs)
 
 JSDocs interactive documentations for library and plugins in a clean and organized web UI with instant search, offline support, device preview and more.
 
