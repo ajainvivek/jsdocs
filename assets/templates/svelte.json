@@ -1,0 +1,66 @@
+{
+  "view_count": 38854,
+  "version": 37,
+  "user_liked": false,
+  "updated_at": "2018-08-22T04:37:54.846904",
+  "title": null,
+  "template": "svelte",
+  "team": null,
+  "tags": [],
+  "source_id": "ae8f43f5-4080-4533-954e-172edaf60024",
+  "privacy": 0,
+  "owned": false,
+  "original_git_commit_sha": null,
+  "original_git": null,
+  "npm_dependencies": {},
+  "modules": [
+    {
+      "title": "HelloWorld.html",
+      "source_id": "ae8f43f5-4080-4533-954e-172edaf60024",
+      "shortid": "wR48r",
+      "is_binary": false,
+      "id": "12e9bea1-87c8-4c06-aa88-ec7bf0027076",
+      "directory_shortid": null,
+      "code": "<div class=\"container\">\n\t<h1>Hello {name}!</h1>\n\n\t<EditingMessage></EditingMessage>\n</div>\n\n<style>\n\t.container {\n\t\ttext-align: center;\n\t\tmargin-top: 2rem;\n\n\t\tfont-family: sans-serif;\n\t}\n</style>\n\n<script>\n\timport EditingMessage from './EditingMessage.html';\n\n\texport default {\n\t\tcomponents: { EditingMessage }\n\t}\n</script>\n"
+    },
+    {
+      "title": "package.json",
+      "source_id": "ae8f43f5-4080-4533-954e-172edaf60024",
+      "shortid": "DJBAy",
+      "is_binary": false,
+      "id": "3c2b42d3-706b-4d60-8c4c-8e1caf020ff4",
+      "directory_shortid": null,
+      "code": "{\n  \"name\": \"svelte\",\n  \"version\": \"1.0.0\",\n  \"description\": \"\",\n  \"keywords\": [],\n  \"main\": \"index.js\",\n  \"dependencies\": {},\n  \"devDependencies\": {\n    \"svelte\": \"2.11.0\"\n  }\n}"
+    },
+    {
+      "title": "index.js",
+      "source_id": "ae8f43f5-4080-4533-954e-172edaf60024",
+      "shortid": "wRo98",
+      "is_binary": false,
+      "id": "979d1a3c-6009-41f5-af81-cbd01ee8be4f",
+      "directory_shortid": null,
+      "code": "import HelloWorld from \"./HelloWorld.html\";\n\nconst app = new HelloWorld({\n  target: document.getElementById(\"root\"),\n  data: {\n    name: \"Svelte\"\n  }\n});\n"
+    },
+    {
+      "title": "EditingMessage.html",
+      "source_id": "ae8f43f5-4080-4533-954e-172edaf60024",
+      "shortid": "LRkL4",
+      "is_binary": false,
+      "id": "9ffcd038-82cf-413c-8377-ad10d857de60",
+      "directory_shortid": null,
+      "code": "<h2>Start editing to see some magic happen.</h2>"
+    }
+  ],
+  "like_count": 4,
+  "is_sse": false,
+  "is_frozen": false,
+  "id": "svelte",
+  "git": null,
+  "forked_from_sandbox": null,
+  "fork_count": 0,
+  "external_resources": [],
+  "entry": "index.js",
+  "directories": [],
+  "description": null,
+  "author": null
+}

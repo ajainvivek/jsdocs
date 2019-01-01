@@ -1,0 +1,37 @@
+{
+    "id": "el-tab-pane",
+    "element": "el-tab-pane",
+    "name": "TabPane",
+    "category": "navigation",
+    "title": "Tab Pane",
+    "info": "divide data collections which are related yet belong to different types.",
+    "uikit": "element-ui",
+    "icon": "ios-more",
+    "native": false,
+    "visible": false,
+    "default": {
+        "properties": {
+            "label": "((random.word))"
+        },
+        "actions": [],
+        "data": {}
+    },
+    "properties": {
+        "label": {
+            "title": "Label",
+            "info": "title of the tab",
+            "placeholder": "Title of tab",
+            "type": "string",
+            "value": "",
+            "default": null
+        },
+        "name": {
+            "title": "Name",
+            "info": "identifier corresponding to the activeName of Tabs, representing the alias of the tab-pane",
+            "placeholder": "Tab name",
+            "type": "string",
+            "value": "",
+            "default": null
+        }
+    }
+}
