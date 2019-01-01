@@ -1,4 +1,3 @@
-import pageLayouts from '@/assets/data/layout/all.json';
 import sourceCode from '@/assets/data/templates/vue-router.json';
 import uikit from '@/assets/data/dependencies/uikit/all.json';
 
@@ -30,9 +29,6 @@ const state = {
 
 // Getters - to compute derived state based on store state, for example filtering through a list of items
 const getters = {
-    pageLayouts(): PageLayout[] {
-        return pageLayouts;
-    },
     selectedComponent(state): any {
         const selected = state.selectedNode || null;
         let selectedComponent: any = {};
