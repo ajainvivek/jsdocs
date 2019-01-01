@@ -1,6 +1,6 @@
 <template>
   <div class="page-block-wrapper">
-    <Input search placeholder="Search..."/>
+    <Input search placeholder="Search..." @on-change="filterQuery"/>
     <div class="item-wrapper" v-for="category in categories" :key="category.id">
       <h4>{{category.name}}</h4>
       <div class="items">
@@ -30,16 +30,35 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { find, filter, startCase, uniqBy, upperFirst, merge } from 'lodash';
 import { uniqueStringId, dasherize, injectFakeData } from '@/helpers';
+import Fuse from 'fuse.js';
 
 @Component({
     components: {},
 })
 export default class PageBlock extends Vue {
+    private filterText: string = '';
+
     get components() {
-        const components = this.$store.state.builder.components;
-        return components.filter(component => {
+        let components = this.$store.state.builder.components;
+        // filter components by visibility, child components are hidden
+        components = components.filter(component => {
             return component.visible === true;
         });
+
+        if (this.filterText !== '') {
+            const filterOptions = {
+                shouldSort: true,
+                threshold: 0.6,
+                location: 0,
+                distance: 100,
+                maxPatternLength: 32,
+                minMatchCharLength: 1,
+                keys: ['title', 'name'],
+            };
+            const fuse = new Fuse(components, filterOptions);
+            return fuse.search(this.filterText);
+        }
+        return components;
     }
 
     private mounted() {
@@ -52,6 +71,10 @@ export default class PageBlock extends Vue {
             this.$store.dispatch('builder/updateActiveUiKit', components[0].uikit);
             this.createPages(components);
         }
+    }
+
+    private filterQuery(input) {
+        this.filterText = input.target.value;
     }
 
     private getCategoryItems(category) {
