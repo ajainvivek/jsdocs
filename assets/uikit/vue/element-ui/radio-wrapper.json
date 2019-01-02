@@ -1,0 +1,37 @@
+{
+    "id": "el-radio-wrapper",
+    "element": "div",
+    "name": "Container",
+    "category": "form",
+    "title": "Radio",
+    "info": "should not have too many options",
+    "icon": "ios-radio-button-on",
+    "native": false,
+    "visible": true,
+    "default": {
+        "actions": [],
+        "data": {
+            "radio": "1"
+        },
+        "children": [{
+            "id": "el-radio",
+            "properties": {
+                "v-model": "radio",
+                "label": "1"
+            }
+        }, {
+            "id": "el-radio",
+            "properties": {
+                "v-model": "radio",
+                "label": "2"
+            }
+        }]
+    },
+    "children": [
+        {
+            "id": "el-radio",
+            "multiple": "true",
+            "title": "Radio Button"
+        }
+    ]
+}

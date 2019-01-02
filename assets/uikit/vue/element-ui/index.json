@@ -11,7 +11,9 @@
             "carousel",
             "carousel-item",
             "tabs",
-            "tab-pane"
+            "tab-pane",
+            "radio-wrapper",
+            "radio-button"
         ]
     }
 }

@@ -13,9 +13,6 @@ export const generatePage = data => {
         properties: Object.assign(data.template.properties, {
             id,
         }),
-        data: {
-            title: `This is your ${startCase(name)} page, start dragging and dropping components.`,
-        },
     });
     const code = jsontoui(template, data.lang, {
         format: true,

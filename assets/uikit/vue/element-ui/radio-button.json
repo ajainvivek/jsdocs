@@ -2,13 +2,14 @@
     "id": "el-radio",
     "element": "el-radio",
     "name": "Radio",
-    "category": "navigation",
+    "category": "form",
     "title": "Radio",
     "info": "should not have too many options",
     "uikit": "element-ui",
     "icon": "ios-radio-button-on",
     "native": false,
     "visible": false,
+    "content": "((random.word))",
     "default": {
         "actions": [],
         "data": {}
@@ -16,19 +17,25 @@
     "properties": {
         "label": {
             "title": "Label",
-            "info": "title of the tab",
-            "placeholder": "Title of tab",
+            "info": "the value of radio",
+            "placeholder": "Value of radio",
             "type": "string",
             "value": "",
             "default": null
         },
         "name": {
             "title": "Name",
-            "info": "identifier corresponding to the activeName of Tabs, representing the alias of the tab-pane",
-            "placeholder": "Tab name",
+            "info": "native 'name' attribute",
+            "placeholder": "native 'name' attribute",
             "type": "string",
             "value": "",
             "default": null
+        },
+        "disabled": {
+            "title": "Disabled",
+            "info": "whether radio is disabled",
+            "type": "boolean",
+            "default": false
         }
     }
 }

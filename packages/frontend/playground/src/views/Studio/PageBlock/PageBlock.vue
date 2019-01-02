@@ -198,15 +198,19 @@ export default class PageBlock extends Vue {
             let children: any[] = [];
             defaultValue.children.forEach(child => {
                 const components = this.$store.state.builder.components;
-                const component = find(components, {
+                const component: any = find(components, {
                     id: child.id,
                 });
+                const defaultValue = Object.assign({}, child);
+                delete defaultValue.id;
                 if (child.count) {
                     for (let i = 0; i < child.count; i++) {
+                        component.default = Object.assign(component.default, defaultValue);
                         const node = this.injectComponent(component);
                         children = children.concat(node);
                     }
                 } else {
+                    component.default = Object.assign(component.default, defaultValue);
                     const node: any[] = this.injectComponent(component);
                     children = children.concat(node);
                 }
