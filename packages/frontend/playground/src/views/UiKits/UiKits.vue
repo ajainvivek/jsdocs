@@ -119,7 +119,9 @@ export default class UiKits extends Vue {
 
     private async fetchUiKit(id) {
         if (id) {
-            const uikit = await fetch(`${process.env.VUE_APP_ASSETS_BASE_URL}/uikit/vue/${id}/index.json`)
+            const uikit = await fetch(`${process.env.VUE_APP_ASSETS_BASE_URL}/uikit/vue/${id}/index.json`, {
+                cache: 'no-cache',
+            })
                 .then(response => response.json())
                 .then(data => {
                     return data;

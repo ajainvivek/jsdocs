@@ -12,7 +12,7 @@
             "carousel-item",
             "tabs",
             "tab-pane",
-            "radio-wrapper",
+            "radio-container",
             "radio-button"
         ]
     }

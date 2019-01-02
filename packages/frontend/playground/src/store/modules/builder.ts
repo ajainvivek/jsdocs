@@ -1,4 +1,4 @@
-import { find, compact, remove, merge } from 'lodash';
+import { find, compact, remove, merge, pickBy, identity } from 'lodash';
 import { generatePage, generateRoute, generatePlugins, updatePage, recursiveComponentUpdate } from '@/helpers';
 
 interface PageLayout {
@@ -29,10 +29,14 @@ const getters = {
         const selected = state.selectedNode || null;
         let selectedComponent: any = {};
         if (selected && selected.data) {
-            selectedComponent = find(state.components, {
-                name: selected.data.name,
-                uikit: selected.data.uikit,
-            });
+            const filter = pickBy(
+                {
+                    name: selected.data.name,
+                    uikit: selected.data.uikit,
+                },
+                identity,
+            );
+            selectedComponent = find(state.components, filter);
             if (selectedComponent) {
                 selectedComponent.uuid = selected.id;
                 selectedComponent.appliedProperties = selected.data.properties || {};

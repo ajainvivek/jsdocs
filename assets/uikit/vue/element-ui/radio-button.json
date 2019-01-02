@@ -36,6 +36,15 @@
             "info": "whether radio is disabled",
             "type": "boolean",
             "default": false
+        },
+        "v-model": {
+            "title": "Model",
+            "info": "Varies based on value of form inputs element or output of components",
+            "placeholder": "Model name",
+            "type": "string",
+            "default": "",
+            "model": {},
+            "isModel": true
         }
     }
 }

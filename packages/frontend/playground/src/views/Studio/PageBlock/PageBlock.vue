@@ -169,10 +169,7 @@ export default class PageBlock extends Vue {
             const modules: any = filter(sourceCode.modules, {
                 directory_shortid: pageDir.shortid,
             });
-            pages = modules.map(module => {
-                module.name = startCase(module.title.replace(/\.[^/.]+$/, ''));
-                return module;
-            });
+            pages = modules;
         }
         return pages;
     }
@@ -225,6 +222,7 @@ export default class PageBlock extends Vue {
                 element: component.element,
                 uikit: component.uikit,
                 native: component.native,
+                content: component.content,
             },
             {
                 properties: {
