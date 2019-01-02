@@ -10,8 +10,8 @@
             "button",
             "carousel",
             "carousel-item",
-            "el-tabs",
-            "el-tab-pane"
+            "tabs",
+            "tab-pane"
         ]
     }
 }

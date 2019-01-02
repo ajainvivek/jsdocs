@@ -128,7 +128,7 @@ export const recursiveComponentInject = (components: any = [], filter, updatedCo
     components.forEach(component => {
         if (component['id'] === filter.id) {
             component['children'] = component['children'] || [];
-            component['children'].push(component);
+            component['children'].push(updatedComponent);
         }
         if (component['id'] && Array.isArray(component['id']['children'])) {
             component['id']['children'] = recursiveComponentInject(

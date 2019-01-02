@@ -78,7 +78,7 @@
     },
     "children": [
         {
-            "id": "el-c3-c1",
+            "id": "el-carousel-item",
             "multiple": "true",
             "title": "Carousel Item"
         }

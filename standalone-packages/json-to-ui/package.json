@@ -8,7 +8,7 @@
     "source": "src/index.js",
     "repository": "",
     "scripts": {
-        "build": "./node_modules/.bin/microbundle --i src/index.js --o dist --globals prettier --sourcemap false",
+        "build": "./node_modules/.bin/microbundle --i src/index.js --o dist --globals prettier --sourcemap true",
         "dev": "microbundle watch --i src/index.js --o dist --globals js-beautify,prettier",
         "prepublishOnly": "npm run build",
         "test": "echo \"Error: no test specified\" && exit 0",
@@ -45,7 +45,7 @@
         "eslint-plugin-prettier": "2.6.2",
         "husky": "0.14.3",
         "lint-staged": "7.3.0",
-        "microbundle": "^0.6.0"
+        "microbundle": "^0.9.0"
     },
     "dependencies": {
         "faker": "^4.1.0",

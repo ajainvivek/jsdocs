@@ -1,0 +1,34 @@
+{
+    "id": "radio",
+    "element": "div",
+    "name": "Radio",
+    "category": "navigation",
+    "title": "Radio",
+    "info": "should not have too many options",
+    "uikit": "element-ui",
+    "icon": "ios-radio-button-on",
+    "native": false,
+    "visible": false,
+    "default": {
+        "actions": [],
+        "data": {}
+    },
+    "properties": {
+        "label": {
+            "title": "Label",
+            "info": "title of the tab",
+            "placeholder": "Title of tab",
+            "type": "string",
+            "value": "",
+            "default": null
+        },
+        "name": {
+            "title": "Name",
+            "info": "identifier corresponding to the activeName of Tabs, representing the alias of the tab-pane",
+            "placeholder": "Tab name",
+            "type": "string",
+            "value": "",
+            "default": null
+        }
+    }
+}

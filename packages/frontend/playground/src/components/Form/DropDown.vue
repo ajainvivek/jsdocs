@@ -38,6 +38,7 @@ export default class DropDown extends Vue {
         this.injectChildComponent(component);
     }
     private injectChildComponent(component) {
+        console.log('object');
         const selectedComponent = this.$store.getters['builder/selectedComponent'];
         const currentView = this.$store.state.builder.currentView;
         const sid = uniqueStringId();
