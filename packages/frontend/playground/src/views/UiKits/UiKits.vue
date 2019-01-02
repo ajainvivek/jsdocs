@@ -1,15 +1,15 @@
 <template>
-	<div class="uikits-block-wrapper">
-		<i-input search placeholder="Search UI kit..." />
-			<div class="card-list-wrapper">
-				<Card class="card" v-for="dependency in dependencies" :key="dependency.id">
-					<div @click="loadUiKit(dependency)">
-						<img :src="dependency.icon" height="32">
-						<h3>{{dependency.title}}</h3>
-					</div>
-				</Card>
-			</div>
-	</div>
+  <div class="uikits-block-wrapper">
+    <i-input search placeholder="Search UI kit..."/>
+    <div class="card-list-wrapper">
+      <Card class="card" v-for="uikit in uikits" :key="uikit.id">
+        <div @click="loadUiKit(uikit)">
+          <img :src="uikit.icon" height="32">
+          <h3>{{uikit.title}}</h3>
+        </div>
+      </Card>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -21,26 +21,43 @@ export default class UiKits extends Vue {
     private showModal: boolean = false;
     private dataType: string = 'uikit'; // uikit, plugins, csskit
 
-    get dependencies() {
-        const { parsed } = this.getNpmDependencies();
-        const dependencies = this.dataType === 'uikit' ? this.$store.state.builder.uikit : [];
-        if (parsed['dependencies']) {
-            dependencies.map((dependency) => {
-                dependency.included = false;
-                if (parsed['dependencies'][dependency.name]) {
-                    dependency.included = true;
-                }
-                return dependency;
-            });
+    get uikits() {
+        const uikits = this.dataType === 'uikit' ? this.$store.state.builder.uikits : [];
+        return uikits;
+    }
+
+    private beforeMount() {
+        this.bootstrap();
+    }
+
+    private async bootstrap() {
+        const uikits = await this.fetchUiKits();
+        const sourceCode = await this.fetchTemplateSourceCode();
+        if (uikits && sourceCode) {
+            this.$store.dispatch('builder/updateUiKits', uikits);
+            this.$store.dispatch('builder/updateSourceCode', sourceCode);
         }
-        return dependencies;
+    }
+
+    private isDependencyIncluded() {
+        const { parsed } = this.getNpmDependencies();
+        const uikit = this.$store.state.builder.activeUiKit;
+        if (uikit && uikit.name) {
+            return !!parsed['dependencies'][uikit.name];
+        }
+        return false;
     }
 
     private async loadUiKit(dependency) {
         const sourceCode = this.$store.state.builder.sourceCode;
+        const activeUiKit = this.$store.state.builder.activeUiKit;
         if (sourceCode.template === dependency.template) {
-            const isDependencyAdded = await this.addNpmDependencyToPackage(dependency);
-            if (isDependencyAdded) {
+            if (!this.isDependencyIncluded()) {
+                const isDependencyAdded = await this.addNpmDependencyToPackage(dependency);
+                if (isDependencyAdded) {
+                    this.navigateToStudio();
+                }
+            } else {
                 this.navigateToStudio();
             }
         }
@@ -57,15 +74,15 @@ export default class UiKits extends Vue {
 
     private allComponentsPromise(components) {
         const promises: any = [];
-        components.forEach((component) => {
+        components.forEach(component => {
             promises.push(
                 new Promise<object>((resolve, reject) => {
-                    fetch(`/data/dependencies/uikit/element-ui/${component}.json`)
-                        .then((response) => response.json())
-                        .then((data) => {
+                    fetch(`${process.env.VUE_APP_ASSETS_BASE_URL}/uikit/element-ui/${component}.json`)
+                        .then(response => response.json())
+                        .then(data => {
                             return resolve(data);
                         })
-                        .catch((error) => {
+                        .catch(error => {
                             return reject(error);
                         });
                 }),
@@ -74,11 +91,37 @@ export default class UiKits extends Vue {
         return promises;
     }
 
+    private async fetchTemplateSourceCode() {
+        const sourceCode = await fetch(`${process.env.VUE_APP_ASSETS_BASE_URL}/templates/vue-router.json`)
+            .then(response => response.json())
+            .then(data => {
+                return data;
+            });
+        if (sourceCode) {
+            return Promise.resolve(sourceCode);
+        }
+
+        return Promise.reject(null);
+    }
+
+    private async fetchUiKits() {
+        const uikits = await fetch(`${process.env.VUE_APP_ASSETS_BASE_URL}/uikit/index.json`)
+            .then(response => response.json())
+            .then(data => {
+                return data;
+            });
+        if (uikits.data && uikits.data.uikit) {
+            return Promise.resolve(uikits.data.uikit);
+        }
+
+        return Promise.reject(null);
+    }
+
     private async fetchUiKit(id) {
         if (id) {
-            const uikit = await fetch('/data/dependencies/uikit/element-ui/index.json')
-                .then((response) => response.json())
-                .then((data) => {
+            const uikit = await fetch(`${process.env.VUE_APP_ASSETS_BASE_URL}/uikit/element-ui/index.json`)
+                .then(response => response.json())
+                .then(data => {
                     return data;
                 });
             if (uikit.data && uikit.data.components) {

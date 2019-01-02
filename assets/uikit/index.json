@@ -8,7 +8,7 @@
                 "title": "Element UI Toolkit",
                 "icon": "https://cdn.worldvectorlogo.com/logos/element-ui-1.svg",
                 "isDev": false,
-                "template": "vue"
+                "template": "vue-cli"
             }
         ]
     }

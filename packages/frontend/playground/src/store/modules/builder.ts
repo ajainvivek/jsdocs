@@ -1,6 +1,3 @@
-import sourceCode from '@/assets/data/templates/vue-router.json';
-import uikit from '@/assets/data/dependencies/uikit/all.json';
-
 import { find, compact, remove, merge } from 'lodash';
 import { generatePage, generateRoute, generatePlugins, updatePage, recursiveComponentUpdate } from '@/helpers';
 
@@ -15,12 +12,11 @@ const state = {
     pageTree: [],
     isLayoutDrawerOpen: false,
     currentView: null,
-    sourceCode,
+    sourceCode: null,
     sandboxFrame: null,
     activeDirectory: 'page',
-    currentDrawerView: null,
     newPageSettings: {},
-    uikit: uikit.data.uikit,
+    uikits: [],
     components: [],
     lang: 'vue',
     selectedNode: {},
@@ -56,8 +52,13 @@ const mutations = {
     updatePageTree(state, tree) {
         state.pageTree = tree;
     },
-    updateLayoutDrawer(state, isDrawer) {
-        state.isLayoutDrawerOpen = isDrawer;
+    // update the list of uikits to display
+    updateUiKits(state, uikits) {
+        state.uikits = uikits;
+    },
+    // update source code
+    updateSourceCode(state, sourceCode) {
+        state.sourceCode = sourceCode;
     },
     removeAllPages(state) {
         const pageDirectory: any = find(state.sourceCode.directories, {
@@ -153,10 +154,6 @@ const mutations = {
     updateCurrentView(state, module) {
         state.currentView = module;
     },
-    // update the current drawer view
-    updateCurrentDrawerView(state, view) {
-        state.currentDrawerView = view;
-    },
     updateSelectedNode(state, node) {
         state.selectedNode = node;
     },
@@ -229,9 +226,6 @@ const actions = {
     updateNewPageSettings({ commit }, settings) {
         commit('updateNewPageSettings', settings);
     },
-    updateCurrentDrawerView({ commit }, view: string) {
-        commit('updateCurrentDrawerView', view);
-    },
     addComponents({ commit }, components) {
         commit('addComponents', components);
     },
@@ -259,6 +253,12 @@ const actions = {
     },
     updateActiveUiKit({ commit, dispatch }, kit) {
         commit('updateActiveUiKit', kit);
+    },
+    updateUiKits({ commit }, uikits) {
+        commit('updateUiKits', uikits);
+    },
+    updateSourceCode({ commit }, sourceCode) {
+        commit('updateSourceCode', sourceCode);
     },
 };
 
