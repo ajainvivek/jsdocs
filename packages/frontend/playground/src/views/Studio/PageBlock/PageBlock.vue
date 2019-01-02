@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { find, filter, startCase, uniqBy, upperFirst, merge } from 'lodash';
+import { find, filter, startCase, uniqBy, upperFirst, merge, isEmpty } from 'lodash';
 import { uniqueStringId, dasherize, injectFakeData } from '@/helpers';
 import Fuse from 'fuse.js';
 
@@ -70,6 +70,12 @@ export default class PageBlock extends Vue {
             // set the active ui kit
             this.$store.dispatch('builder/updateActiveUiKit', components[0].uikit);
             this.createPages(components);
+        }
+
+        const selectedComponent = this.$store.getters['builder/selectedComponent'];
+
+        if (isEmpty(selectedComponent)) {
+            this.updateSelectedPage(components[0]);
         }
     }
 
