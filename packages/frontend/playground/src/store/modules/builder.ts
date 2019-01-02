@@ -57,8 +57,12 @@ const mutations = {
         state.uikits = uikits;
     },
     // update source code
-    updateSourceCode(state, sourceCode) {
+    resetSourceCode(state, sourceCode) {
         state.sourceCode = sourceCode;
+        state.components = [];
+        state.currentView = null;
+        state.activeUiKit = '';
+        state.selectedNode = {};
     },
     removeAllPages(state) {
         const pageDirectory: any = find(state.sourceCode.directories, {
@@ -257,8 +261,8 @@ const actions = {
     updateUiKits({ commit }, uikits) {
         commit('updateUiKits', uikits);
     },
-    updateSourceCode({ commit }, sourceCode) {
-        commit('updateSourceCode', sourceCode);
+    resetSourceCode({ commit }, sourceCode) {
+        commit('resetSourceCode', sourceCode);
     },
 };
 

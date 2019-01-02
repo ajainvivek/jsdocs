@@ -35,7 +35,7 @@ export default class UiKits extends Vue {
         const sourceCode = await this.fetchTemplateSourceCode();
         if (uikits && sourceCode) {
             this.$store.dispatch('builder/updateUiKits', uikits);
-            this.$store.dispatch('builder/updateSourceCode', sourceCode);
+            this.$store.dispatch('builder/resetSourceCode', sourceCode);
         }
     }
 
