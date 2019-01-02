@@ -1,4 +1,4 @@
-# builder
+# JSDocs Playground Frontend
 
 ## Project setup
 ```

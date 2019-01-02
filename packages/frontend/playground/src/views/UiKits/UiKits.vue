@@ -72,12 +72,12 @@ export default class UiKits extends Vue {
         return fromPairs(sorted);
     }
 
-    private allComponentsPromise(components) {
+    private allComponentsPromise(id, components) {
         const promises: any = [];
         components.forEach(component => {
             promises.push(
                 new Promise<object>((resolve, reject) => {
-                    fetch(`${process.env.VUE_APP_ASSETS_BASE_URL}/uikit/element-ui/${component}.json`)
+                    fetch(`${process.env.VUE_APP_ASSETS_BASE_URL}/uikit/vue/${id}/${component}.json`)
                         .then(response => response.json())
                         .then(data => {
                             return resolve(data);
@@ -119,13 +119,13 @@ export default class UiKits extends Vue {
 
     private async fetchUiKit(id) {
         if (id) {
-            const uikit = await fetch(`${process.env.VUE_APP_ASSETS_BASE_URL}/uikit/element-ui/index.json`)
+            const uikit = await fetch(`${process.env.VUE_APP_ASSETS_BASE_URL}/uikit/vue/${id}/index.json`)
                 .then(response => response.json())
                 .then(data => {
                     return data;
                 });
             if (uikit.data && uikit.data.components) {
-                const allComponentsPromise = this.allComponentsPromise(uikit.data.components);
+                const allComponentsPromise = this.allComponentsPromise(id, uikit.data.components);
                 const components = await Promise.all(allComponentsPromise);
                 uikit.data.components = components;
                 return Promise.resolve(uikit);

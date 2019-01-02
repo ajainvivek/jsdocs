@@ -3,11 +3,11 @@
 <img alt="JSDocs" title="JSDocs" src="https://github.com/ajainvivek/jsdocs/blob/master/assets/logo.png" width="100">
 </a>
 </p>
-<p align="center">Interactive <b>UI Kit</b> documentation for library and plugins.</p>
+<p align="center">Interactive <b>UI Kit</b> documentation for UI libraries and plugins.</p>
 
 [![Build Status](https://travis-ci.org/ajainvivek/jsdocs.svg?branch=master)](https://travis-ci.org/ajainvivek/jsdocs)
 
-JSDocs interactive documentations for library and plugins in a clean and organized web UI with instant search, offline support, device preview and more.
+JSDocs is an interactive documentation for UI libraries and plugins in a clean and organized web UI with instant search, offline support, device preview and more.
 
 JSDocs was created by [Ajain Vivek](https://github.com/ajainvivek).
 
