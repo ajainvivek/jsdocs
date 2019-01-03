@@ -1,6 +1,6 @@
 {
     "name": "jsontoui",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "JSON based dynamic component generation",
     "module": "dist/jsontoui.es.js",
     "main": "dist/jsontoui.js",
