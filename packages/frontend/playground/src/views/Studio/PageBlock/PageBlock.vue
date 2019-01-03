@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { find, filter, startCase, uniqBy, upperFirst, merge, isEmpty } from 'lodash';
+import { find, filter, startCase, uniqBy, upperFirst, merge, isEmpty, cloneDeep } from 'lodash';
 import { uniqueStringId, dasherize, injectFakeData } from '@/helpers';
 import Fuse from 'fuse.js';
 
@@ -195,9 +195,11 @@ export default class PageBlock extends Vue {
             let children: any[] = [];
             defaultValue.children.forEach(child => {
                 const components = this.$store.state.builder.components;
-                const component: any = find(components, {
-                    id: child.id,
-                });
+                const component: any = cloneDeep(
+                    find(components, {
+                        id: child.id,
+                    }),
+                );
                 const defaultValue = Object.assign({}, child);
                 delete defaultValue.id;
                 if (child.count) {

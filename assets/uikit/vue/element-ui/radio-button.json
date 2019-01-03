@@ -9,10 +9,13 @@
     "icon": "ios-radio-button-on",
     "native": false,
     "visible": false,
-    "content": "((random.word))",
     "default": {
+        "content": "((address.country))",
         "actions": [],
-        "data": {}
+        "properties": {
+            "label": "((random.number))",
+            "v-model": "country.radio"
+        }
     },
     "properties": {
         "label": {

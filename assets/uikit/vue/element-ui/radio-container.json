@@ -9,21 +9,22 @@
     "native": false,
     "visible": true,
     "default": {
-        "actions": [],
         "data": {
-            "radio": "1"
+            "country": {
+                "radio": "1"
+            }
         },
         "children": [{
             "id": "el-radio",
             "properties": {
-                "v-model": "radio",
-                "label": "1"
+                "label": "1",
+                "v-model": "country.radio"
             }
         }, {
             "id": "el-radio",
             "properties": {
-                "v-model": "radio",
-                "label": "2"
+                "label": "2",
+                "v-model": "country.radio"
             }
         }]
     },

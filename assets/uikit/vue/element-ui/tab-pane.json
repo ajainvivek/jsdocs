@@ -10,6 +10,7 @@
     "native": false,
     "visible": false,
     "default": {
+        "content": "((hacker.phrase))",
         "properties": {
             "label": "((random.word))"
         },
