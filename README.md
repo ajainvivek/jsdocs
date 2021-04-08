@@ -11,7 +11,7 @@ JSDocs is an interactive documentation for UI libraries and plugins in a clean a
 
 Demo:
 
-![](https://i.imgur.com/HX0ZJwH.gif)
+![](demo.gif)
 
 JSDocs was created by [Ajain Vivek](https://github.com/ajainvivek).
 
